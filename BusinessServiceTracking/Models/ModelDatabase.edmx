@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BusinessServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BusinessService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="CostCentre" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="SalaryNumber" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurName" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="SalaryNumber" Type="char" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Junction_BS_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BsServiceID" Type="int" />
+          <Property Name="TechServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Junction_EMP_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalaryNumber" Type="char" MaxLength="8" />
+          <Property Name="TechServiceID" Type="int" />
+          <Property Name="Percentage_Allocation" Type="decimal" Precision="3" Scale="2" />
+        </EntityType>
+        <EntityType Name="Junction_Software_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoftwareID" Type="int" />
+          <Property Name="TechServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Junction_Vendor_Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="ProductOwner" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="SingleUnitCost" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareLicensing">
+          <Key>
+            <PropertyRef Name="SoftwareID" />
+          </Key>
+          <Property Name="SoftwareID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoftwareName" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="Owner" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="CostPerCapacityUnit" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TechnologyService">
+          <Key>
+            <PropertyRef Name="TechServiceID" />
+          </Key>
+          <Property Name="TechServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="RelationshipOwner" Type="char" MaxLength="120" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Junction___BsSer__31EC6D26">
+          <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
+          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Junction_BS_TS">
+              <PropertyRef Name="BsServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Produ__2F10007B">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Junction_Vendor_Product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Salar__37A5467C">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="SalaryNumber" />
+            </Principal>
+            <Dependent Role="Junction_EMP_TS">
+              <PropertyRef Name="SalaryNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Softw__3C69FB99">
+          <End Role="SoftwareLicensing" Type="Self.SoftwareLicensing" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoftwareLicensing">
+              <PropertyRef Name="SoftwareID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="SoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__32E0915F">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_BS_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__38996AB5">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_EMP_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__3D5E1FD2">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Vendo__2E1BDC42">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Junction_Vendor_Product">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technolog__Produ__276EDEB3">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="TechnologyService">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusinessServicesModelStoreContainer">
+          <EntitySet Name="BusinessService" EntityType="Self.BusinessService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junction_BS_TS" EntityType="Self.Junction_BS_TS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junction_EMP_TS" EntityType="Self.Junction_EMP_TS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junction_Software_TS" EntityType="Self.Junction_Software_TS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junction_Vendor_Product" EntityType="Self.Junction_Vendor_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareLicensing" EntityType="Self.SoftwareLicensing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechnologyService" EntityType="Self.TechnologyService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Junction___BsSer__31EC6D26" Association="Self.FK__Junction___BsSer__31EC6D26">
+            <End Role="BusinessService" EntitySet="BusinessService" />
+            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Produ__2F10007B" Association="Self.FK__Junction___Produ__2F10007B">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Salar__37A5467C" Association="Self.FK__Junction___Salar__37A5467C">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Softw__3C69FB99" Association="Self.FK__Junction___Softw__3C69FB99">
+            <End Role="SoftwareLicensing" EntitySet="SoftwareLicensing" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__32E0915F" Association="Self.FK__Junction___TechS__32E0915F">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__38996AB5" Association="Self.FK__Junction___TechS__38996AB5">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__3D5E1FD2" Association="Self.FK__Junction___TechS__3D5E1FD2">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Vendo__2E1BDC42" Association="Self.FK__Junction___Vendo__2E1BDC42">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technolog__Produ__276EDEB3" Association="Self.FK__Technolog__Produ__276EDEB3">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusinessServicesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BusinessService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ServiceOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CostCentre" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___BsSer__31EC6D26" FromRole="BusinessService" ToRole="Junction_BS_TS" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="SalaryNumber" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurName" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SalaryNumber" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___Salar__37A5467C" FromRole="Employees" ToRole="Junction_EMP_TS" />
+        </EntityType>
+        <EntityType Name="Junction_BS_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BsServiceID" Type="Int32" />
+          <Property Name="TechServiceID" Type="Int32" />
+          <NavigationProperty Name="BusinessService" Relationship="Self.FK__Junction___BsSer__31EC6D26" FromRole="Junction_BS_TS" ToRole="BusinessService" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__32E0915F" FromRole="Junction_BS_TS" ToRole="TechnologyService" />
+        </EntityType>
+        <EntityType Name="Junction_EMP_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalaryNumber" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TechServiceID" Type="Int32" />
+          <Property Name="Percentage_Allocation" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Junction___Salar__37A5467C" FromRole="Junction_EMP_TS" ToRole="Employees" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__38996AB5" FromRole="Junction_EMP_TS" ToRole="TechnologyService" />
+        </EntityType>
+        <EntityType Name="Junction_Software_TS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoftwareID" Type="Int32" />
+          <Property Name="TechServiceID" Type="Int32" />
+          <NavigationProperty Name="SoftwareLicensing" Relationship="Self.FK__Junction___Softw__3C69FB99" FromRole="Junction_Software_TS" ToRole="SoftwareLicensing" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__3D5E1FD2" FromRole="Junction_Software_TS" ToRole="TechnologyService" />
+        </EntityType>
+        <EntityType Name="Junction_Vendor_Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Junction___Produ__2F10007B" FromRole="Junction_Vendor_Product" ToRole="Product" />
+          <NavigationProperty Name="Vendor" Relationship="Self.FK__Junction___Vendo__2E1BDC42" FromRole="Junction_Vendor_Product" ToRole="Vendors" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SingleUnitCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Produ__2F10007B" FromRole="Product" ToRole="Junction_Vendor_Product" />
+          <NavigationProperty Name="TechnologyServices" Relationship="Self.FK__Technolog__Produ__276EDEB3" FromRole="Product" ToRole="TechnologyService" />
+        </EntityType>
+        <EntityType Name="SoftwareLicensing">
+          <Key>
+            <PropertyRef Name="SoftwareID" />
+          </Key>
+          <Property Name="SoftwareID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoftwareName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Owner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CostPerCapacityUnit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="Self.FK__Junction___Softw__3C69FB99" FromRole="SoftwareLicensing" ToRole="Junction_Software_TS" />
+        </EntityType>
+        <EntityType Name="TechnologyService">
+          <Key>
+            <PropertyRef Name="TechServiceID" />
+          </Key>
+          <Property Name="TechServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ServiceOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___TechS__32E0915F" FromRole="TechnologyService" ToRole="Junction_BS_TS" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___TechS__38996AB5" FromRole="TechnologyService" ToRole="Junction_EMP_TS" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="Self.FK__Junction___TechS__3D5E1FD2" FromRole="TechnologyService" ToRole="Junction_Software_TS" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Technolog__Produ__276EDEB3" FromRole="TechnologyService" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RelationshipOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Vendo__2E1BDC42" FromRole="Vendors" ToRole="Junction_Vendor_Product" />
+        </EntityType>
+        <Association Name="FK__Junction___BsSer__31EC6D26">
+          <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
+          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Junction_BS_TS">
+              <PropertyRef Name="BsServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Salar__37A5467C">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="SalaryNumber" />
+            </Principal>
+            <Dependent Role="Junction_EMP_TS">
+              <PropertyRef Name="SalaryNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__32E0915F">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_BS_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__38996AB5">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_EMP_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Softw__3C69FB99">
+          <End Role="SoftwareLicensing" Type="Self.SoftwareLicensing" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoftwareLicensing">
+              <PropertyRef Name="SoftwareID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="SoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__3D5E1FD2">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Produ__2F10007B">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Junction_Vendor_Product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Vendo__2E1BDC42">
+          <End Role="Vendors" Type="Self.Vendor" Multiplicity="0..1" />
+          <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Junction_Vendor_Product">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technolog__Produ__276EDEB3">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="TechnologyService">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusinessServicesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BusinessServices" EntityType="Self.BusinessService" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Junction_BS_TS" EntityType="Self.Junction_BS_TS" />
+          <EntitySet Name="Junction_EMP_TS" EntityType="Self.Junction_EMP_TS" />
+          <EntitySet Name="Junction_Software_TS" EntityType="Self.Junction_Software_TS" />
+          <EntitySet Name="Junction_Vendor_Product" EntityType="Self.Junction_Vendor_Product" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="SoftwareLicensings" EntityType="Self.SoftwareLicensing" />
+          <EntitySet Name="TechnologyServices" EntityType="Self.TechnologyService" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendor" />
+          <AssociationSet Name="FK__Junction___BsSer__31EC6D26" Association="Self.FK__Junction___BsSer__31EC6D26">
+            <End Role="BusinessService" EntitySet="BusinessServices" />
+            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Salar__37A5467C" Association="Self.FK__Junction___Salar__37A5467C">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__32E0915F" Association="Self.FK__Junction___TechS__32E0915F">
+            <End Role="TechnologyService" EntitySet="TechnologyServices" />
+            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__38996AB5" Association="Self.FK__Junction___TechS__38996AB5">
+            <End Role="TechnologyService" EntitySet="TechnologyServices" />
+            <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Softw__3C69FB99" Association="Self.FK__Junction___Softw__3C69FB99">
+            <End Role="SoftwareLicensing" EntitySet="SoftwareLicensings" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__3D5E1FD2" Association="Self.FK__Junction___TechS__3D5E1FD2">
+            <End Role="TechnologyService" EntitySet="TechnologyServices" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Produ__2F10007B" Association="Self.FK__Junction___Produ__2F10007B">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Vendo__2E1BDC42" Association="Self.FK__Junction___Vendo__2E1BDC42">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technolog__Produ__276EDEB3" Association="Self.FK__Technolog__Produ__276EDEB3">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="TechnologyService" EntitySet="TechnologyServices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BusinessServicesModelStoreContainer" CdmEntityContainer="BusinessServicesEntities">
+          <EntitySetMapping Name="BusinessServices">
+            <EntityTypeMapping TypeName="BusinessServicesModel.BusinessService">
+              <MappingFragment StoreEntitySet="BusinessService">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
+                <ScalarProperty Name="CostCentre" ColumnName="CostCentre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junction_BS_TS">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Junction_BS_TS">
+              <MappingFragment StoreEntitySet="Junction_BS_TS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BsServiceID" ColumnName="BsServiceID" />
+                <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junction_EMP_TS">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Junction_EMP_TS">
+              <MappingFragment StoreEntitySet="Junction_EMP_TS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
+                <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
+                <ScalarProperty Name="Percentage_Allocation" ColumnName="Percentage_Allocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junction_Software_TS">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Junction_Software_TS">
+              <MappingFragment StoreEntitySet="Junction_Software_TS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SoftwareID" ColumnName="SoftwareID" />
+                <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junction_Vendor_Product">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Junction_Vendor_Product">
+              <MappingFragment StoreEntitySet="Junction_Vendor_Product">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductOwner" ColumnName="ProductOwner" />
+                <ScalarProperty Name="SingleUnitCost" ColumnName="SingleUnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareLicensings">
+            <EntityTypeMapping TypeName="BusinessServicesModel.SoftwareLicensing">
+              <MappingFragment StoreEntitySet="SoftwareLicensing">
+                <ScalarProperty Name="SoftwareID" ColumnName="SoftwareID" />
+                <ScalarProperty Name="SoftwareName" ColumnName="SoftwareName" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="CostPerCapacityUnit" ColumnName="CostPerCapacityUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnologyServices">
+            <EntityTypeMapping TypeName="BusinessServicesModel.TechnologyService">
+              <MappingFragment StoreEntitySet="TechnologyService">
+                <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="BusinessServicesModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="RelationshipOwner" ColumnName="RelationshipOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

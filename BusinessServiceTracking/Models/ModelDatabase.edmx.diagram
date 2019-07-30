@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="38e705864f8345199153217bf60a859a" Name="Diagram1">
+        <EntityTypeShape EntityType="BusinessServicesModel.BusinessService" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Employee" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Junction_BS_TS" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Junction_EMP_TS" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Junction_Software_TS" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Junction_Vendor_Product" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Product" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.SoftwareLicensing" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.TechnologyService" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessServicesModel.Vendor" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___BsSer__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___Salar__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___TechS__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___TechS__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___Softw__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___TechS__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___Produ__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Junction___Vendo__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessServicesModel.FK__Technolog__Produ__276EDEB3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
