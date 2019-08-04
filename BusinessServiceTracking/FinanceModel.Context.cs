@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking.Models
+namespace BusinessServiceTracking
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BusinessServicesEntities : DbContext
+    public partial class FinanceEntities : DbContext
     {
-        public BusinessServicesEntities()
-            : base("name=BusinessServicesEntities")
+        public FinanceEntities()
+            : base("name=FinanceEntities")
         {
         }
     
@@ -29,7 +29,6 @@ namespace BusinessServiceTracking.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Junction_BS_TS> Junction_BS_TS { get; set; }
         public virtual DbSet<Junction_EMP_TS> Junction_EMP_TS { get; set; }
-        public virtual DbSet<Junction_Software_TS> Junction_Software_TS { get; set; }
         public virtual DbSet<Junction_Vendor_Product> Junction_Vendor_Product { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<SoftwareLicensing> SoftwareLicensings { get; set; }

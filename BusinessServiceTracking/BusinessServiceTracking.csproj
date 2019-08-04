@@ -134,91 +134,83 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="BusinessService.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Employee.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FinanceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FinanceModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessService.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    <Compile Include="Junction_BS_TS.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    <Compile Include="Junction_EMP_TS.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Junction_BS_TS.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    <Compile Include="Junction_Vendor_Product.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Junction_EMP_TS.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Junction_Software_TS.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Junction_Vendor_Product.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDatabase.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SoftwareLicensing.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TechnologyService.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Vendor.cs">
-      <DependentUpon>ModelDatabase.tt</DependentUpon>
+    <Compile Include="Product.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoftwareLicensing.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TechnologyService.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BusinessServices.mdf" />
-    <Content Include="App_Data\BusinessServices_log.ldf">
-      <DependentUpon>BusinessServices.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FinanceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FinanceModel.edmx</DependentUpon>
+      <LastGenOutput>FinanceModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="FinanceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FinanceModel.edmx</DependentUpon>
+      <LastGenOutput>FinanceModel.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ModelDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDatabase.edmx</DependentUpon>
-      <LastGenOutput>ModelDatabase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDatabase.edmx</DependentUpon>
-      <LastGenOutput>ModelDatabase.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ModelDatabase.edmx">
+    <EntityDeploy Include="FinanceModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>FinanceModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelDatabase.edmx.diagram">
-      <DependentUpon>ModelDatabase.edmx</DependentUpon>
+    <Content Include="FinanceModel.edmx.diagram">
+      <DependentUpon>FinanceModel.edmx</DependentUpon>
     </Content>
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -247,7 +239,10 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

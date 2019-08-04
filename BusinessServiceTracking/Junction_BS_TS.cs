@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking.Models
+namespace BusinessServiceTracking
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Junction_EMP_TS
+    public partial class Junction_BS_TS
     {
-        public int ID { get; set; }
-        public string SalaryNumber { get; set; }
+        public int JBTID { get; set; }
+        public Nullable<int> BsServiceID { get; set; }
         public Nullable<int> TechServiceID { get; set; }
-        public Nullable<decimal> Percentage_Allocation { get; set; }
     
-        public virtual Employee Employee { get; set; }
+        public virtual BusinessService BusinessService { get; set; }
         public virtual TechnologyService TechnologyService { get; set; }
     }
 }

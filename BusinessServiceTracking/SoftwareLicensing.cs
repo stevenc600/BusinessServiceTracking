@@ -7,18 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking.Models
+namespace BusinessServiceTracking
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Junction_BS_TS
+    public partial class SoftwareLicensing
     {
-        public int ID { get; set; }
-        public Nullable<int> BsServiceID { get; set; }
-        public Nullable<int> TechServiceID { get; set; }
-    
-        public virtual BusinessService BusinessService { get; set; }
-        public virtual TechnologyService TechnologyService { get; set; }
+        public int SLID { get; set; }
+        public string SoftwareName { get; set; }
+        public string Owner { get; set; }
+        public decimal CostPerCapacityUnit { get; set; }
     }
 }
