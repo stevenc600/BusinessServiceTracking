@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BusinessService">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,6 +13,16 @@
           <Property Name="ServiceName" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="CostCentre" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessUnit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="CostCentre" Type="int" Nullable="false" />
+          <Property Name="EMPID" Type="int" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -84,6 +94,35 @@
           <Property Name="VendorName" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="RelationshipOwner" Type="char" MaxLength="120" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUnit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeDetailsWithBusinessUnit">
+          <Key>
+            <PropertyRef Name="SurName" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="SalaryNumber" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="EMPID" />
+          </Key>
+          <Property Name="SurName" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="SalaryNumber" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Name" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="AnnualSalary" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="EMPID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BusinessU__EMPID__5CD6CB2B">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="BusinessUnit" Type="Self.BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EMPID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="EMPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Junction___BsSer__45F365D3">
           <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
@@ -170,6 +209,7 @@
         </Association>
         <EntityContainer Name="FinanceModelStoreContainer">
           <EntitySet Name="BusinessService" EntityType="Self.BusinessService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessUnit" EntityType="Self.BusinessUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junction_BS_TS" EntityType="Self.Junction_BS_TS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junction_EMP_TS" EntityType="Self.Junction_EMP_TS" Schema="dbo" store:Type="Tables" />
@@ -178,6 +218,20 @@
           <EntitySet Name="SoftwareLicensing" EntityType="Self.SoftwareLicensing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TechnologyService" EntityType="Self.TechnologyService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeDetailsWithBusinessUnit" EntityType="Self.EmployeeDetailsWithBusinessUnit" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeDetailsWithBusinessUnit].[SurName] AS [SurName], 
+    [EmployeeDetailsWithBusinessUnit].[FirstName] AS [FirstName], 
+    [EmployeeDetailsWithBusinessUnit].[SalaryNumber] AS [SalaryNumber], 
+    [EmployeeDetailsWithBusinessUnit].[Name] AS [Name], 
+    [EmployeeDetailsWithBusinessUnit].[AnnualSalary] AS [AnnualSalary], 
+    [EmployeeDetailsWithBusinessUnit].[EMPID] AS [EMPID]
+    FROM [dbo].[EmployeeDetailsWithBusinessUnit] AS [EmployeeDetailsWithBusinessUnit]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__BusinessU__EMPID__5CD6CB2B" Association="Self.FK__BusinessU__EMPID__5CD6CB2B">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+          </AssociationSet>
           <AssociationSet Name="FK__Junction___BsSer__45F365D3" Association="Self.FK__Junction___BsSer__45F365D3">
             <End Role="BusinessService" EntitySet="BusinessService" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
@@ -207,8 +261,7 @@
             <End Role="TechnologyService" EntitySet="TechnologyService" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -232,6 +285,7 @@
           <Property Name="SalaryNumber" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
           <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___EMPID__4BAC3F29" FromRole="Employees" ToRole="Junction_EMP_TS" />
+          <NavigationProperty Name="BusinessUnits" Relationship="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B" FromRole="Employee" ToRole="BusinessUnit" />
         </EntityType>
         <EntityType Name="Junction_BS_TS">
           <Key>
@@ -427,7 +481,51 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
           </AssociationSet>
+          <EntitySet Name="BusinessUnits" EntityType="FinanceModel.BusinessUnit" />
+          <AssociationSet Name="FK__BusinessU__EMPID__5CD6CB2B" Association="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeDetailsWithBusinessUnits" EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" />
         </EntityContainer>
+        <EntityType Name="BusinessUnit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
+          <Property Name="ServiceOwner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
+          <Property Name="CostCentre" Type="Int32" Nullable="false" />
+          <Property Name="EMPID" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B" FromRole="BusinessUnit" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK__BusinessU__EMPID__5CD6CB2B">
+          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="FinanceModel.BusinessUnit" Role="BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EMPID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="EMPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeDetailsWithBusinessUnit">
+          <Key>
+            <PropertyRef Name="SurName" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="SalaryNumber" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="EMPID" />
+          </Key>
+          <Property Name="SurName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="SalaryNumber" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
+          <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="EMPID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -519,6 +617,29 @@
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="VendorName" ColumnName="VendorName" />
                 <ScalarProperty Name="RelationshipOwner" ColumnName="RelationshipOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessUnits">
+            <EntityTypeMapping TypeName="FinanceModel.BusinessUnit">
+              <MappingFragment StoreEntitySet="BusinessUnit">
+                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
+                <ScalarProperty Name="CostCentre" ColumnName="CostCentre" />
+                <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDetailsWithBusinessUnits">
+            <EntityTypeMapping TypeName="FinanceModel.EmployeeDetailsWithBusinessUnit">
+              <MappingFragment StoreEntitySet="EmployeeDetailsWithBusinessUnit">
+                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
+                <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

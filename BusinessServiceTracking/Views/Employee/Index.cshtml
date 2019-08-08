@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusinessServiceTracking.Employee>
+﻿@model IEnumerable<BusinessServiceTracking.EmployeeDetailsWithBusinessUnit>
 
 @{
     ViewBag.Title = "Index";
@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.AnnualSalary)
         </th>
+        <th>
+            @Html.Label("Business Unit")
+        </th>
         <th></th>
     </tr>
 
@@ -38,12 +41,15 @@
             @Html.DisplayFor(modelItem => item.SalaryNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AnnualSalary)
+            @string.Format("${0:0,0}", item.AnnualSalary)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EMPID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EMPID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EMPID })
+           @Html.DisplayFor(modelItem => item.Name,"Business Unit")
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.EMPID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.EMPID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.EMPID })
         </td>
     </tr>
 }

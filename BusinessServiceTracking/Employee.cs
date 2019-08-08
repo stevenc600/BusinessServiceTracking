@@ -18,6 +18,7 @@ namespace BusinessServiceTracking
         public Employee()
         {
             this.Junction_EMP_TS = new HashSet<Junction_EMP_TS>();
+            this.BusinessUnits = new HashSet<BusinessUnit>();
         }
     
         public int EMPID { get; set; }
@@ -28,5 +29,7 @@ namespace BusinessServiceTracking
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Junction_EMP_TS> Junction_EMP_TS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BusinessUnit> BusinessUnits { get; set; }
     }
 }

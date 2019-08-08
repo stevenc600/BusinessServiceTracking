@@ -34,5 +34,7 @@ namespace BusinessServiceTracking
         public virtual DbSet<SoftwareLicensing> SoftwareLicensings { get; set; }
         public virtual DbSet<TechnologyService> TechnologyServices { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<BusinessUnit> BusinessUnits { get; set; }
+        public virtual DbSet<EmployeeDetailsWithBusinessUnit> EmployeeDetailsWithBusinessUnits { get; set; }
     }
 }

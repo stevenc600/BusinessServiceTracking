@@ -137,9 +137,15 @@
     <Compile Include="BusinessService.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessUnit.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Employee.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeDetailsWithBusinessUnit.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FinanceModel.Context.cs">
