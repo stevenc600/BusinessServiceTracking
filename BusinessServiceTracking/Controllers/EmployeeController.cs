@@ -42,7 +42,7 @@ namespace BusinessServiceTracking.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Employee model,BusinessUnit businessUnit)
+        public ActionResult Create(Employee model)
         {
             if (ModelState.IsValid){
                             
@@ -52,7 +52,7 @@ namespace BusinessServiceTracking.Controllers
                 List<BusinessUnit> list = db.BusinessUnits.ToList();
                 ViewBag.BusinessUnit = new SelectList(list, "id", "name");
 
-
+                ICollection<BusinessUnit> buid = model.BusinessUnits;
 
                 Employee newEmp = new Employee
                 {
@@ -89,7 +89,19 @@ namespace BusinessServiceTracking.Controllers
 
 
                 var latestId = newEmp.EMPID;
-               
+
+                Junction_Employees_BusinessUnit junction_Employees_BusinessUnit = new Junction_Employees_BusinessUnit();
+                Junction_Employees_BusinessUnit newJunction = junction_Employees_BusinessUnit;
+
+                newJunction.EMPID = latestId;
+               // newJunction.ID = model.BusinessUnits.id;
+
+
+
+;
+
+
+
                 return RedirectToAction("Index");
 
             }

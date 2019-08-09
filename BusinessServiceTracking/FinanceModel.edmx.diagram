@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="FinanceModel.BusinessService" Width="1.5" PointX="1.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Employee" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Junction_BS_TS" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="2.125" PointX="5.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Junction_Vendor_Product" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Product" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.SoftwareLicensing" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
@@ -24,6 +24,7 @@
         <EntityTypeShape EntityType="FinanceModel.BusinessUnit" Width="1.5" PointX="5.25" PointY="10.875" />
         <AssociationConnector Association="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B" />
         <EntityTypeShape EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" Width="3.25" PointX="10" PointY="4.375" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_Employees_BusinessUnit" Width="2.375" PointX="6.875" PointY="7.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -163,10 +163,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinanceModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="FindEmployees_Result.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Junction_BS_TS.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Junction_Employees_BusinessUnit.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Junction_EMP_TS.cs">

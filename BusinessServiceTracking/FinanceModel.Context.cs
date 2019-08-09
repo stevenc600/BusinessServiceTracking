@@ -12,6 +12,8 @@ namespace BusinessServiceTracking
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class FinanceEntities : DbContext
     {
@@ -36,5 +38,11 @@ namespace BusinessServiceTracking
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<BusinessUnit> BusinessUnits { get; set; }
         public virtual DbSet<EmployeeDetailsWithBusinessUnit> EmployeeDetailsWithBusinessUnits { get; set; }
+        public virtual DbSet<Junction_Employees_BusinessUnit> Junction_Employees_BusinessUnit { get; set; }
+    
+        public virtual ObjectResult<FindEmployees_Result> FindEmployees()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindEmployees_Result>("FindEmployees");
+        }
     }
 }
