@@ -7,24 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Vendor
+    public partial class BusinessUnit
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Vendor()
+        public BusinessUnit()
         {
-            this.Junction_Vendor_Product = new HashSet<Junction_Vendor_Product>();
+            this.Employees = new HashSet<Employee>();
         }
     
-        public int VendorID { get; set; }
-        public string VendorName { get; set; }
-        public string RelationshipOwner { get; set; }
+        public int BUID { get; set; }
+        public string Name { get; set; }
+        public string ServiceOwner { get; set; }
+        public int CostCentre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Junction_Vendor_Product> Junction_Vendor_Product { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

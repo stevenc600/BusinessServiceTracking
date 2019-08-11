@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;

@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class FindEmployees_Result
+    public partial class Junction_Software_TS
     {
-        public int EMPID { get; set; }
-        public string SurName { get; set; }
-        public string FirstName { get; set; }
-        public string SalaryNumber { get; set; }
-        public Nullable<decimal> AnnualSalary { get; set; }
+        public int JSTS { get; set; }
+        public Nullable<int> SLID { get; set; }
+        public Nullable<int> TechServiceID { get; set; }
+    
+        public virtual TechnologyService TechnologyService { get; set; }
+        public virtual SoftwareLicensing SoftwareLicensing { get; set; }
     }
 }

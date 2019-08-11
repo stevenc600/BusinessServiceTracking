@@ -7,15 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Junction_Employees_BusinessUnit
+    public partial class FindEmployees_Result
     {
-        public int JVPID { get; set; }
-        public Nullable<int> ID { get; set; }
-        public Nullable<int> EMPID { get; set; }
+        public int EMPID { get; set; }
+        public string SurName { get; set; }
+        public string FirstName { get; set; }
+        public string SalaryNumber { get; set; }
+        public Nullable<decimal> AnnualSalary { get; set; }
+        public Nullable<int> BUID { get; set; }
     }
 }

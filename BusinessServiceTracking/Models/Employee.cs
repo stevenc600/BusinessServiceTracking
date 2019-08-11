@@ -7,18 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeDetailsWithBusinessUnit
+    public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.Junction_EMP_TS = new HashSet<Junction_EMP_TS>();
+        }
+    
+        public int EMPID { get; set; }
         public string SurName { get; set; }
         public string FirstName { get; set; }
         public string SalaryNumber { get; set; }
-        public string Name { get; set; }
         public Nullable<decimal> AnnualSalary { get; set; }
-        public int EMPID { get; set; }
+        public Nullable<int> BUID { get; set; }
+    
+        public virtual BusinessUnit BusinessUnit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Junction_EMP_TS> Junction_EMP_TS { get; set; }
     }
 }

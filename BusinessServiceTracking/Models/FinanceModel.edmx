@@ -4,25 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BusinessService">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="BSID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceName" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="CostCentre" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BusinessUnit">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="BUID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="ServiceOwner" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="CostCentre" Type="int" Nullable="false" />
-          <Property Name="EMPID" Type="int" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -33,6 +32,7 @@
           <Property Name="FirstName" Type="char" MaxLength="100" Nullable="false" />
           <Property Name="SalaryNumber" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="AnnualSalary" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="BUID" Type="int" />
         </EntityType>
         <EntityType Name="Junction_BS_TS">
           <Key>
@@ -51,13 +51,13 @@
           <Property Name="TechServiceID" Type="int" />
           <Property Name="Percentage_Allocation" Type="decimal" Precision="3" Scale="2" />
         </EntityType>
-        <EntityType Name="Junction_Employees_BusinessUnit">
+        <EntityType Name="Junction_Software_TS">
           <Key>
-            <PropertyRef Name="JVPID" />
+            <PropertyRef Name="JSTS" />
           </Key>
-          <Property Name="JVPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID" Type="int" />
-          <Property Name="EMPID" Type="int" />
+          <Property Name="JSTS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SLID" Type="int" />
+          <Property Name="TechServiceID" Type="int" />
         </EntityType>
         <EntityType Name="Junction_Vendor_Product">
           <Key>
@@ -106,44 +106,46 @@
 warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUnit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeDetailsWithBusinessUnit">
           <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="EMPID" />
             <PropertyRef Name="SurName" />
             <PropertyRef Name="FirstName" />
             <PropertyRef Name="SalaryNumber" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="EMPID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="char" MaxLength="120" Nullable="false" />
+          <Property Name="EMPID" Type="int" Nullable="false" />
           <Property Name="SurName" Type="char" MaxLength="100" Nullable="false" />
           <Property Name="FirstName" Type="char" MaxLength="100" Nullable="false" />
           <Property Name="SalaryNumber" Type="char" MaxLength="8" Nullable="false" />
-          <Property Name="Name" Type="char" MaxLength="120" Nullable="false" />
           <Property Name="AnnualSalary" Type="decimal" Precision="19" Scale="2" />
-          <Property Name="EMPID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__BusinessU__EMPID__5CD6CB2B">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
-          <End Role="BusinessUnit" Type="Self.BusinessUnit" Multiplicity="*" />
+        <Association Name="FK__Employees__BUID__3552E9B6">
+          <End Role="BusinessUnit" Type="Self.BusinessUnit" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="EMPID" />
+            <Principal Role="BusinessUnit">
+              <PropertyRef Name="BUID" />
             </Principal>
-            <Dependent Role="BusinessUnit">
-              <PropertyRef Name="EMPID" />
+            <Dependent Role="Employees">
+              <PropertyRef Name="BUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___BsSer__3B40CD36">
+        <Association Name="FK__Junction___BsSer__2DB1C7EE">
           <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BusinessService">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="BSID" />
             </Principal>
             <Dependent Role="Junction_BS_TS">
               <PropertyRef Name="BsServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___EMPID__4BAC3F29">
+        <Association Name="FK__Junction___EMPID__382F5661">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +157,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Produ__3864608B">
+        <Association Name="FK__Junction___Produ__2AD55B43">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -167,7 +169,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__3C34F16F">
+        <Association Name="FK__Junction___TechS__2EA5EC27">
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -179,7 +181,31 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Vendo__37703C52">
+        <Association Name="FK__Junction___TechS__32767D0B">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__39237A9A">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_EMP_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Vendo__29E1370A">
           <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
           <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -191,7 +217,19 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Technolog__Produ__30C33EC3">
+        <Association Name="FK__Junction_S__SLID__318258D2">
+          <End Role="SoftwareLicensing" Type="Self.SoftwareLicensing" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoftwareLicensing">
+              <PropertyRef Name="SLID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="SLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technolog__Produ__2334397B">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="*" />
           <ReferentialConstraint>
@@ -210,7 +248,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junction_BS_TS" EntityType="Self.Junction_BS_TS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junction_EMP_TS" EntityType="Self.Junction_EMP_TS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Junction_Employees_BusinessUnit" EntityType="Self.Junction_Employees_BusinessUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junction_Software_TS" EntityType="Self.Junction_Software_TS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junction_Vendor_Product" EntityType="Self.Junction_Vendor_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoftwareLicensing" EntityType="Self.SoftwareLicensing" Schema="dbo" store:Type="Tables" />
@@ -218,56 +256,80 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDetailsWithBusinessUnit" EntityType="Self.EmployeeDetailsWithBusinessUnit" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [EmployeeDetailsWithBusinessUnit].[ID] AS [ID], 
+    [EmployeeDetailsWithBusinessUnit].[Name] AS [Name], 
+    [EmployeeDetailsWithBusinessUnit].[EMPID] AS [EMPID], 
     [EmployeeDetailsWithBusinessUnit].[SurName] AS [SurName], 
     [EmployeeDetailsWithBusinessUnit].[FirstName] AS [FirstName], 
     [EmployeeDetailsWithBusinessUnit].[SalaryNumber] AS [SalaryNumber], 
-    [EmployeeDetailsWithBusinessUnit].[Name] AS [Name], 
-    [EmployeeDetailsWithBusinessUnit].[AnnualSalary] AS [AnnualSalary], 
-    [EmployeeDetailsWithBusinessUnit].[EMPID] AS [EMPID]
+    [EmployeeDetailsWithBusinessUnit].[AnnualSalary] AS [AnnualSalary]
     FROM [dbo].[EmployeeDetailsWithBusinessUnit] AS [EmployeeDetailsWithBusinessUnit]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__BusinessU__EMPID__5CD6CB2B" Association="Self.FK__BusinessU__EMPID__5CD6CB2B">
-            <End Role="Employees" EntitySet="Employees" />
+          <AssociationSet Name="FK__Employees__BUID__3552E9B6" Association="Self.FK__Employees__BUID__3552E9B6">
             <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+            <End Role="Employees" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___BsSer__3B40CD36" Association="Self.FK__Junction___BsSer__3B40CD36">
+          <AssociationSet Name="FK__Junction___BsSer__2DB1C7EE" Association="Self.FK__Junction___BsSer__2DB1C7EE">
             <End Role="BusinessService" EntitySet="BusinessService" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___EMPID__4BAC3F29" Association="Self.FK__Junction___EMPID__4BAC3F29">
+          <AssociationSet Name="FK__Junction___EMPID__382F5661" Association="Self.FK__Junction___EMPID__382F5661">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Produ__3864608B" Association="Self.FK__Junction___Produ__3864608B">
+          <AssociationSet Name="FK__Junction___Produ__2AD55B43" Association="Self.FK__Junction___Produ__2AD55B43">
             <End Role="Product" EntitySet="Product" />
             <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__3C34F16F" Association="Self.FK__Junction___TechS__3C34F16F">
+          <AssociationSet Name="FK__Junction___TechS__2EA5EC27" Association="Self.FK__Junction___TechS__2EA5EC27">
             <End Role="TechnologyService" EntitySet="TechnologyService" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Vendo__37703C52" Association="Self.FK__Junction___Vendo__37703C52">
+          <AssociationSet Name="FK__Junction___TechS__32767D0B" Association="Self.FK__Junction___TechS__32767D0B">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__39237A9A" Association="Self.FK__Junction___TechS__39237A9A">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Vendo__29E1370A" Association="Self.FK__Junction___Vendo__29E1370A">
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Technolog__Produ__30C33EC3" Association="Self.FK__Technolog__Produ__30C33EC3">
+          <AssociationSet Name="FK__Junction_S__SLID__318258D2" Association="Self.FK__Junction_S__SLID__318258D2">
+            <End Role="SoftwareLicensing" EntitySet="SoftwareLicensing" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technolog__Produ__2334397B" Association="Self.FK__Technolog__Produ__2334397B">
             <End Role="Product" EntitySet="Product" />
             <End Role="TechnologyService" EntitySet="TechnologyService" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BusinessService">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="BSID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ServiceName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ServiceOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CostCentre" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___BsSer__45F365D3" FromRole="BusinessService" ToRole="Junction_BS_TS" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___BsSer__2DB1C7EE" FromRole="BusinessService" ToRole="Junction_BS_TS" />
+        </EntityType>
+        <EntityType Name="BusinessUnit">
+          <Key>
+            <PropertyRef Name="BUID" />
+          </Key>
+          <Property Name="BUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ServiceOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CostCentre" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__BUID__3552E9B6" FromRole="BusinessUnit" ToRole="Employees" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -278,8 +340,9 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="SalaryNumber" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
-          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___EMPID__4BAC3F29" FromRole="Employees" ToRole="Junction_EMP_TS" />
-          <NavigationProperty Name="BusinessUnits" Relationship="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B" FromRole="Employee" ToRole="BusinessUnit" />
+          <Property Name="BUID" Type="Int32" />
+          <NavigationProperty Name="BusinessUnit" Relationship="Self.FK__Employees__BUID__3552E9B6" FromRole="Employees" ToRole="BusinessUnit" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___EMPID__382F5661" FromRole="Employees" ToRole="Junction_EMP_TS" />
         </EntityType>
         <EntityType Name="Junction_BS_TS">
           <Key>
@@ -288,8 +351,8 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="JBTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BsServiceID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <NavigationProperty Name="BusinessService" Relationship="Self.FK__Junction___BsSer__45F365D3" FromRole="Junction_BS_TS" ToRole="BusinessService" />
-          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__46E78A0C" FromRole="Junction_BS_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="BusinessService" Relationship="Self.FK__Junction___BsSer__2DB1C7EE" FromRole="Junction_BS_TS" ToRole="BusinessService" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__2EA5EC27" FromRole="Junction_BS_TS" ToRole="TechnologyService" />
         </EntityType>
         <EntityType Name="Junction_EMP_TS">
           <Key>
@@ -299,8 +362,18 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="EMPID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
           <Property Name="Percentage_Allocation" Type="Decimal" Precision="3" Scale="2" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Junction___EMPID__4BAC3F29" FromRole="Junction_EMP_TS" ToRole="Employees" />
-          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__4CA06362" FromRole="Junction_EMP_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Junction___EMPID__382F5661" FromRole="Junction_EMP_TS" ToRole="Employees" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__39237A9A" FromRole="Junction_EMP_TS" ToRole="TechnologyService" />
+        </EntityType>
+        <EntityType Name="Junction_Software_TS">
+          <Key>
+            <PropertyRef Name="JSTS" />
+          </Key>
+          <Property Name="JSTS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SLID" Type="Int32" />
+          <Property Name="TechServiceID" Type="Int32" />
+          <NavigationProperty Name="TechnologyService" Relationship="Self.FK__Junction___TechS__32767D0B" FromRole="Junction_Software_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="SoftwareLicensing" Relationship="Self.FK__Junction_S__SLID__318258D2" FromRole="Junction_Software_TS" ToRole="SoftwareLicensing" />
         </EntityType>
         <EntityType Name="Junction_Vendor_Product">
           <Key>
@@ -309,8 +382,8 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="JVPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorID" Type="Int32" />
           <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__Junction___Produ__4316F928" FromRole="Junction_Vendor_Product" ToRole="Product" />
-          <NavigationProperty Name="Vendor" Relationship="Self.FK__Junction___Vendo__4222D4EF" FromRole="Junction_Vendor_Product" ToRole="Vendors" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Junction___Produ__2AD55B43" FromRole="Junction_Vendor_Product" ToRole="Product" />
+          <NavigationProperty Name="Vendor" Relationship="Self.FK__Junction___Vendo__29E1370A" FromRole="Junction_Vendor_Product" ToRole="Vendors" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -320,8 +393,8 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="ProductName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ProductOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="SingleUnitCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Produ__4316F928" FromRole="Product" ToRole="Junction_Vendor_Product" />
-          <NavigationProperty Name="TechnologyServices" Relationship="Self.FK__Technolog__Produ__3B75D760" FromRole="Product" ToRole="TechnologyService" />
+          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Produ__2AD55B43" FromRole="Product" ToRole="Junction_Vendor_Product" />
+          <NavigationProperty Name="TechnologyServices" Relationship="Self.FK__Technolog__Produ__2334397B" FromRole="Product" ToRole="TechnologyService" />
         </EntityType>
         <EntityType Name="SoftwareLicensing">
           <Key>
@@ -331,6 +404,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="SoftwareName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Owner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CostPerCapacityUnit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="Self.FK__Junction_S__SLID__318258D2" FromRole="SoftwareLicensing" ToRole="Junction_Software_TS" />
         </EntityType>
         <EntityType Name="TechnologyService">
           <Key>
@@ -340,9 +414,10 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="ServiceName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ServiceOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___TechS__46E78A0C" FromRole="TechnologyService" ToRole="Junction_BS_TS" />
-          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___TechS__4CA06362" FromRole="TechnologyService" ToRole="Junction_EMP_TS" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__Technolog__Produ__3B75D760" FromRole="TechnologyService" ToRole="Product" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="Self.FK__Junction___TechS__2EA5EC27" FromRole="TechnologyService" ToRole="Junction_BS_TS" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="Self.FK__Junction___TechS__39237A9A" FromRole="TechnologyService" ToRole="Junction_EMP_TS" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="Self.FK__Junction___TechS__32767D0B" FromRole="TechnologyService" ToRole="Junction_Software_TS" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Technolog__Produ__2334397B" FromRole="TechnologyService" ToRole="Product" />
         </EntityType>
         <EntityType Name="Vendor">
           <Key>
@@ -351,21 +426,50 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
           <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="RelationshipOwner" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Vendo__4222D4EF" FromRole="Vendors" ToRole="Junction_Vendor_Product" />
+          <NavigationProperty Name="Junction_Vendor_Product" Relationship="Self.FK__Junction___Vendo__29E1370A" FromRole="Vendors" ToRole="Junction_Vendor_Product" />
         </EntityType>
-        <Association Name="FK__Junction___BsSer__45F365D3">
+        <EntityType Name="EmployeeDetailsWithBusinessUnit">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="EMPID" />
+            <PropertyRef Name="SurName" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="SalaryNumber" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="120" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EMPID" Type="Int32" Nullable="false" />
+          <Property Name="SurName" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SalaryNumber" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Junction___BsSer__2DB1C7EE">
           <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BusinessService">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="BSID" />
             </Principal>
             <Dependent Role="Junction_BS_TS">
               <PropertyRef Name="BsServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___EMPID__4BAC3F29">
+        <Association Name="FK__Employees__BUID__3552E9B6">
+          <End Role="BusinessUnit" Type="Self.BusinessUnit" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessUnit">
+              <PropertyRef Name="BUID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="BUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___EMPID__382F5661">
           <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +481,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__46E78A0C">
+        <Association Name="FK__Junction___TechS__2EA5EC27">
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -389,7 +493,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__4CA06362">
+        <Association Name="FK__Junction___TechS__39237A9A">
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
           <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -401,7 +505,31 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Produ__4316F928">
+        <Association Name="FK__Junction___TechS__32767D0B">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction_S__SLID__318258D2">
+          <End Role="SoftwareLicensing" Type="Self.SoftwareLicensing" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoftwareLicensing">
+              <PropertyRef Name="SLID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="SLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___Produ__2AD55B43">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -413,7 +541,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Vendo__4222D4EF">
+        <Association Name="FK__Junction___Vendo__29E1370A">
           <End Role="Vendors" Type="Self.Vendor" Multiplicity="0..1" />
           <End Role="Junction_Vendor_Product" Type="Self.Junction_Vendor_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,7 +553,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Technolog__Produ__3B75D760">
+        <Association Name="FK__Technolog__Produ__2334397B">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="*" />
           <ReferentialConstraint>
@@ -437,117 +565,90 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FinanceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FinanceModellingEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BusinessServices" EntityType="Self.BusinessService" />
+          <EntitySet Name="BusinessUnits" EntityType="Self.BusinessUnit" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Junction_BS_TS" EntityType="Self.Junction_BS_TS" />
           <EntitySet Name="Junction_EMP_TS" EntityType="Self.Junction_EMP_TS" />
+          <EntitySet Name="Junction_Software_TS" EntityType="Self.Junction_Software_TS" />
           <EntitySet Name="Junction_Vendor_Product" EntityType="Self.Junction_Vendor_Product" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="SoftwareLicensings" EntityType="Self.SoftwareLicensing" />
           <EntitySet Name="TechnologyServices" EntityType="Self.TechnologyService" />
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
-          <AssociationSet Name="FK__Junction___BsSer__45F365D3" Association="Self.FK__Junction___BsSer__45F365D3">
+          <EntitySet Name="EmployeeDetailsWithBusinessUnits" EntityType="Self.EmployeeDetailsWithBusinessUnit" />
+          <AssociationSet Name="FK__Junction___BsSer__2DB1C7EE" Association="Self.FK__Junction___BsSer__2DB1C7EE">
             <End Role="BusinessService" EntitySet="BusinessServices" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___EMPID__4BAC3F29" Association="Self.FK__Junction___EMPID__4BAC3F29">
+          <AssociationSet Name="FK__Employees__BUID__3552E9B6" Association="Self.FK__Employees__BUID__3552E9B6">
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___EMPID__382F5661" Association="Self.FK__Junction___EMPID__382F5661">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__46E78A0C" Association="Self.FK__Junction___TechS__46E78A0C">
+          <AssociationSet Name="FK__Junction___TechS__2EA5EC27" Association="Self.FK__Junction___TechS__2EA5EC27">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__4CA06362" Association="Self.FK__Junction___TechS__4CA06362">
+          <AssociationSet Name="FK__Junction___TechS__39237A9A" Association="Self.FK__Junction___TechS__39237A9A">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Produ__4316F928" Association="Self.FK__Junction___Produ__4316F928">
+          <AssociationSet Name="FK__Junction___TechS__32767D0B" Association="Self.FK__Junction___TechS__32767D0B">
+            <End Role="TechnologyService" EntitySet="TechnologyServices" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction_S__SLID__318258D2" Association="Self.FK__Junction_S__SLID__318258D2">
+            <End Role="SoftwareLicensing" EntitySet="SoftwareLicensings" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___Produ__2AD55B43" Association="Self.FK__Junction___Produ__2AD55B43">
             <End Role="Product" EntitySet="Products" />
             <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Vendo__4222D4EF" Association="Self.FK__Junction___Vendo__4222D4EF">
+          <AssociationSet Name="FK__Junction___Vendo__29E1370A" Association="Self.FK__Junction___Vendo__29E1370A">
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="Junction_Vendor_Product" EntitySet="Junction_Vendor_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Technolog__Produ__3B75D760" Association="Self.FK__Technolog__Produ__3B75D760">
+          <AssociationSet Name="FK__Technolog__Produ__2334397B" Association="Self.FK__Technolog__Produ__2334397B">
             <End Role="Product" EntitySet="Products" />
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
           </AssociationSet>
-          <EntitySet Name="BusinessUnits" EntityType="FinanceModel.BusinessUnit" />
-          <AssociationSet Name="FK__BusinessU__EMPID__5CD6CB2B" Association="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
-          </AssociationSet>
-          <EntitySet Name="EmployeeDetailsWithBusinessUnits" EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" />
-          <EntitySet Name="Junction_Employees_BusinessUnit" EntityType="FinanceModel.Junction_Employees_BusinessUnit" />
           <FunctionImport Name="FindEmployees" ReturnType="Collection(FinanceModel.FindEmployees_Result)" />
         </EntityContainer>
-        <EntityType Name="BusinessUnit">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
-          <Property Name="ServiceOwner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
-          <Property Name="CostCentre" Type="Int32" Nullable="false" />
-          <Property Name="EMPID" Type="Int32" />
-          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK__BusinessU__EMPID__5CD6CB2B" FromRole="BusinessUnit" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK__BusinessU__EMPID__5CD6CB2B">
-          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="FinanceModel.BusinessUnit" Role="BusinessUnit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EMPID" />
-            </Principal>
-            <Dependent Role="BusinessUnit">
-              <PropertyRef Name="EMPID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="EmployeeDetailsWithBusinessUnit">
-          <Key>
-            <PropertyRef Name="SurName" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="SalaryNumber" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="EMPID" />
-          </Key>
-          <Property Name="SurName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
-          <Property Name="SalaryNumber" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
-          <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
-          <Property Name="EMPID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Junction_Employees_BusinessUnit">
-          <Key>
-            <PropertyRef Name="JVPID" />
-          </Key>
-          <Property Name="JVPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID" Type="Int32" />
-          <Property Name="EMPID" Type="Int32" />
-        </EntityType>
         <ComplexType Name="FindEmployees_Result">
           <Property Type="Int32" Name="EMPID" Nullable="false" />
           <Property Type="String" Name="SurName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="SalaryNumber" Nullable="false" MaxLength="8" />
           <Property Type="Decimal" Name="AnnualSalary" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Int32" Name="BUID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceEntities">
+        <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceModellingEntities2">
           <EntitySetMapping Name="BusinessServices">
             <EntityTypeMapping TypeName="FinanceModel.BusinessService">
               <MappingFragment StoreEntitySet="BusinessService">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BSID" ColumnName="BSID" />
                 <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
+                <ScalarProperty Name="CostCentre" ColumnName="CostCentre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessUnits">
+            <EntityTypeMapping TypeName="FinanceModel.BusinessUnit">
+              <MappingFragment StoreEntitySet="BusinessUnit">
+                <ScalarProperty Name="BUID" ColumnName="BUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
                 <ScalarProperty Name="CostCentre" ColumnName="CostCentre" />
               </MappingFragment>
@@ -561,6 +662,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
                 <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
+                <ScalarProperty Name="BUID" ColumnName="BUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -580,6 +682,15 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
                 <ScalarProperty Name="EMPID" ColumnName="EMPID" />
                 <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
                 <ScalarProperty Name="Percentage_Allocation" ColumnName="Percentage_Allocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junction_Software_TS">
+            <EntityTypeMapping TypeName="FinanceModel.Junction_Software_TS">
+              <MappingFragment StoreEntitySet="Junction_Software_TS">
+                <ScalarProperty Name="JSTS" ColumnName="JSTS" />
+                <ScalarProperty Name="SLID" ColumnName="SLID" />
+                <ScalarProperty Name="TechServiceID" ColumnName="TechServiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -631,35 +742,16 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BusinessUnits">
-            <EntityTypeMapping TypeName="FinanceModel.BusinessUnit">
-              <MappingFragment StoreEntitySet="BusinessUnit">
-                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
-                <ScalarProperty Name="CostCentre" ColumnName="CostCentre" />
-                <ScalarProperty Name="ServiceOwner" ColumnName="ServiceOwner" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EmployeeDetailsWithBusinessUnits">
             <EntityTypeMapping TypeName="FinanceModel.EmployeeDetailsWithBusinessUnit">
               <MappingFragment StoreEntitySet="EmployeeDetailsWithBusinessUnit">
-                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
-                <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="SurName" ColumnName="SurName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Junction_Employees_BusinessUnit">
-            <EntityTypeMapping TypeName="FinanceModel.Junction_Employees_BusinessUnit">
-              <MappingFragment StoreEntitySet="Junction_Employees_BusinessUnit">
-                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="JVPID" ColumnName="JVPID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
+                <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -671,6 +763,7 @@ warning 6002: The table/view 'FinanceModelling.dbo.EmployeeDetailsWithBusinessUn
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="SalaryNumber" ColumnName="SalaryNumber" />
                 <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
+                <ScalarProperty Name="BUID" ColumnName="BUID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

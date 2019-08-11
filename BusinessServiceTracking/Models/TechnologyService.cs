@@ -7,29 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class TechnologyService
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
+        public TechnologyService()
         {
+            this.Junction_BS_TS = new HashSet<Junction_BS_TS>();
             this.Junction_EMP_TS = new HashSet<Junction_EMP_TS>();
-            this.BusinessUnits = new HashSet<BusinessUnit>();
+            this.Junction_Software_TS = new HashSet<Junction_Software_TS>();
         }
     
-        public int EMPID { get; set; }
-        public string SurName { get; set; }
-        public string FirstName { get; set; }
-        public string SalaryNumber { get; set; }
-        public Nullable<decimal> AnnualSalary { get; set; }
+        public int TechServiceID { get; set; }
+        public string ServiceName { get; set; }
+        public string ServiceOwner { get; set; }
+        public Nullable<int> ProductID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Junction_BS_TS> Junction_BS_TS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Junction_EMP_TS> Junction_EMP_TS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BusinessUnit> BusinessUnits { get; set; }
+        public virtual ICollection<Junction_Software_TS> Junction_Software_TS { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -7,25 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessServiceTracking
+namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class BusinessService
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BusinessService()
+        public Product()
         {
-            this.Junction_BS_TS = new HashSet<Junction_BS_TS>();
+            this.Junction_Vendor_Product = new HashSet<Junction_Vendor_Product>();
+            this.TechnologyServices = new HashSet<TechnologyService>();
         }
     
-        public int ID { get; set; }
-        public string ServiceName { get; set; }
-        public string ServiceOwner { get; set; }
-        public int CostCentre { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public string ProductOwner { get; set; }
+        public decimal SingleUnitCost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Junction_BS_TS> Junction_BS_TS { get; set; }
+        public virtual ICollection<Junction_Vendor_Product> Junction_Vendor_Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TechnologyService> TechnologyServices { get; set; }
     }
 }
