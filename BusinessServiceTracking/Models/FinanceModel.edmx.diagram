@@ -9,14 +9,14 @@
         <EntityTypeShape EntityType="FinanceModel.BusinessUnit" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Employee" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Junction_BS_TS" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="2.625" PointX="6.25" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Junction_Software_TS" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Junction_Vendor_Product" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Product" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.SoftwareLicensing" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.TechnologyService" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FinanceModel.Vendor" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="FinanceModel.FK__Junction___BsSer__2DB1C7EE" ManuallyRouted="false" />
         <AssociationConnector Association="FinanceModel.FK__Employees__BUID__3552E9B6" ManuallyRouted="false" />
         <AssociationConnector Association="FinanceModel.FK__Junction___EMPID__382F5661" ManuallyRouted="false" />

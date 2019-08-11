@@ -17,6 +17,7 @@ namespace BusinessServiceTracking.Controllers
         // GET: Employees
         public ActionResult Index()
         {
+            // Explicit loading of related data using the include method
             var employees = db.Employees.Include(e => e.BusinessUnit);
             return View(employees.ToList());
         }
