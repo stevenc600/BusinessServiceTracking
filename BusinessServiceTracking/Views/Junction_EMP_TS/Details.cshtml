@@ -1,0 +1,42 @@
+﻿@model BusinessServiceTracking.Models.Junction_EMP_TS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Junction_EMP_TS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Percentage_Allocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percentage_Allocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.SurName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.SurName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnologyService.ServiceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyService.ServiceName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JETID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

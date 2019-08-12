@@ -5,28 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="87eb4d20e6844462abd659ee120c3f0a" Name="Diagram1">
-        <EntityTypeShape EntityType="FinanceModel.BusinessService" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.BusinessUnit" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Employee" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_BS_TS" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="2.625" PointX="6.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_Software_TS" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Junction_Vendor_Product" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Product" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.SoftwareLicensing" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.TechnologyService" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.Vendor" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceModel.EmployeeDetailsWithBusinessUnit" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___BsSer__2DB1C7EE" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Employees__BUID__3552E9B6" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___EMPID__382F5661" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__2EA5EC27" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__39237A9A" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__32767D0B" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction_S__SLID__318258D2" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___Produ__2AD55B43" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Junction___Vendo__29E1370A" ManuallyRouted="false" />
-        <AssociationConnector Association="FinanceModel.FK__Technolog__Produ__2334397B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FinanceModel.BusinessService" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FinanceModel.BusinessUnit" Width="1.5" PointX="10.125" PointY="2.75" />
+        <EntityTypeShape EntityType="FinanceModel.Employee" Width="1.5" PointX="12.625" PointY="2.75" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_BS_TS" Width="1.5" PointX="3.375" PointY="5.5" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_EMP_TS" Width="1.5" PointX="10.125" PointY="5" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_MaintAgreement_TS" Width="1.5" PointX="10.75" PointY="14.625" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_Software_TS" Width="1.5" PointX="10.75" PointY="12.25" />
+        <EntityTypeShape EntityType="FinanceModel.Junction_Vendor_TS" Width="1.5" PointX="4.625" PointY="8.875" />
+        <EntityTypeShape EntityType="FinanceModel.MaintenanceAgreement" Width="1.5" PointX="12.875" PointY="14.625" />
+        <EntityTypeShape EntityType="FinanceModel.SoftwareLicensing" Width="1.5" PointX="12.875" PointY="12.25" />
+        <EntityTypeShape EntityType="FinanceModel.TechnologyService" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="FinanceModel.Vendor" Width="1.5" PointX="4.625" PointY="11.875" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___BsSer__0662F0A3" />
+        <AssociationConnector Association="FinanceModel.FK__Employees__BUID__0E04126B" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___EMPID__10E07F16" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__075714DC" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__11D4A34F" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__7DCDAAA2" />
+        <AssociationConnector Association="FinanceModel.FK__Junction_M__MAID__7CD98669" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__0B27A5C0" />
+        <AssociationConnector Association="FinanceModel.FK__Junction_S__SLID__0A338187" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___TechS__038683F8" />
+        <AssociationConnector Association="FinanceModel.FK__Junction___Vendo__02925FBF" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

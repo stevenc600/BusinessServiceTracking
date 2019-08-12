@@ -32,13 +32,13 @@ namespace BusinessServiceTracking.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Junction_BS_TS> Junction_BS_TS { get; set; }
         public virtual DbSet<Junction_EMP_TS> Junction_EMP_TS { get; set; }
+        public virtual DbSet<Junction_MaintAgreement_TS> Junction_MaintAgreement_TS { get; set; }
         public virtual DbSet<Junction_Software_TS> Junction_Software_TS { get; set; }
-        public virtual DbSet<Junction_Vendor_Product> Junction_Vendor_Product { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Junction_Vendor_TS> Junction_Vendor_TS { get; set; }
+        public virtual DbSet<MaintenanceAgreement> MaintenanceAgreements { get; set; }
         public virtual DbSet<SoftwareLicensing> SoftwareLicensings { get; set; }
         public virtual DbSet<TechnologyService> TechnologyServices { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
-        public virtual DbSet<EmployeeDetailsWithBusinessUnit> EmployeeDetailsWithBusinessUnits { get; set; }
     
         public virtual ObjectResult<FindEmployees_Result> FindEmployees()
         {

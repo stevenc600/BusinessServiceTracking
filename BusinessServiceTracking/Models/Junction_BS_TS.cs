@@ -15,6 +15,7 @@ namespace BusinessServiceTracking.Models
     public partial class Junction_BS_TS
     {
         public int JBTID { get; set; }
+        public Nullable<decimal> Percentage_Allocation { get; set; }
         public Nullable<int> BsServiceID { get; set; }
         public Nullable<int> TechServiceID { get; set; }
     

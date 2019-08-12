@@ -12,13 +12,14 @@ namespace BusinessServiceTracking.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Junction_Vendor_Product
+    public partial class Junction_MaintAgreement_TS
     {
-        public int JVPID { get; set; }
-        public Nullable<int> VendorID { get; set; }
-        public Nullable<int> ProductID { get; set; }
+        public int JMATS { get; set; }
+        public Nullable<decimal> Percentage_Allocation { get; set; }
+        public Nullable<int> MAID { get; set; }
+        public Nullable<int> TechServiceID { get; set; }
     
-        public virtual Product Product { get; set; }
-        public virtual Vendor Vendor { get; set; }
+        public virtual TechnologyService TechnologyService { get; set; }
+        public virtual MaintenanceAgreement MaintenanceAgreement { get; set; }
     }
 }

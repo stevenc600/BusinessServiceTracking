@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BusinessServiceTracking.Models.Junction_EMP_TS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Percentage Allocation")
+
+        </th>
+        <th>
+
+            @Html.Label("First name")
+
+        </th>
+        <th>
+
+            @Html.Label("Surname")
+
+        </th>
+        <th>
+            @Html.Label("Technology Service Name")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percentage_Allocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.SurName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TechnologyService.ServiceName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.JETID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.JETID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.JETID })
+        </td>
+    </tr>
+}
+
+</table>

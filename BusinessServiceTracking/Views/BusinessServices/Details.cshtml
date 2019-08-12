@@ -1,0 +1,42 @@
+﻿@model BusinessServiceTracking.Models.BusinessService
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BusinessService</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostCentre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostCentre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BSID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

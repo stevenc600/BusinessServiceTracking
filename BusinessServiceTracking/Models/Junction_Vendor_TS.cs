@@ -12,14 +12,14 @@ namespace BusinessServiceTracking.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeDetailsWithBusinessUnit
+    public partial class Junction_Vendor_TS
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int EMPID { get; set; }
-        public string SurName { get; set; }
-        public string FirstName { get; set; }
-        public string SalaryNumber { get; set; }
-        public Nullable<decimal> AnnualSalary { get; set; }
+        public int JVPID { get; set; }
+        public Nullable<decimal> Percentage_Allocation { get; set; }
+        public Nullable<int> VendorID { get; set; }
+        public Nullable<int> TechServiceID { get; set; }
+    
+        public virtual TechnologyService TechnologyService { get; set; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

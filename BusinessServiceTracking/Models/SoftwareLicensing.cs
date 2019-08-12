@@ -23,7 +23,7 @@ namespace BusinessServiceTracking.Models
         public int SLID { get; set; }
         public string SoftwareName { get; set; }
         public string Owner { get; set; }
-        public decimal CostPerCapacityUnit { get; set; }
+        public decimal Cost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Junction_Software_TS> Junction_Software_TS { get; set; }

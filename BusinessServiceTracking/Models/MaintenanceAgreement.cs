@@ -12,23 +12,21 @@ namespace BusinessServiceTracking.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class MaintenanceAgreement
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public MaintenanceAgreement()
         {
-            this.Junction_Vendor_Product = new HashSet<Junction_Vendor_Product>();
-            this.TechnologyServices = new HashSet<TechnologyService>();
+            this.Junction_MaintAgreement_TS = new HashSet<Junction_MaintAgreement_TS>();
         }
     
-        public int ProductID { get; set; }
-        public string ProductName { get; set; }
-        public string ProductOwner { get; set; }
-        public decimal SingleUnitCost { get; set; }
+        public int MAID { get; set; }
+        public string AgreementName { get; set; }
+        public string Vendor { get; set; }
+        public decimal TotalCost { get; set; }
+        public string Owner { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Junction_Vendor_Product> Junction_Vendor_Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TechnologyService> TechnologyServices { get; set; }
+        public virtual ICollection<Junction_MaintAgreement_TS> Junction_MaintAgreement_TS { get; set; }
     }
 }

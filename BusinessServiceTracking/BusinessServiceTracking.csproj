@@ -134,8 +134,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BusinessServicesController.cs" />
+    <Compile Include="Controllers\BusinessUnitsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Junction_EMP_TSController.cs" />
+    <Compile Include="Controllers\MaintenanceAgreementsController.cs" />
+    <Compile Include="Controllers\SoftwareLicensingsController.cs" />
+    <Compile Include="Controllers\TechnologyServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,9 +152,6 @@
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <DependentUpon>FinanceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EmployeeDetailsWithBusinessUnit.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FinanceModel.Context.cs">
@@ -175,13 +178,16 @@
     <Compile Include="Models\Junction_EMP_TS.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Junction_MaintAgreement_TS.cs">
+      <DependentUpon>FinanceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Junction_Software_TS.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Junction_Vendor_Product.cs">
+    <Compile Include="Models\Junction_Vendor_TS.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
+    <Compile Include="Models\MaintenanceAgreement.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SoftwareLicensing.cs">
@@ -253,6 +259,41 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Junction_EMP_TS\Create.cshtml" />
+    <Content Include="Views\Junction_EMP_TS\Delete.cshtml" />
+    <Content Include="Views\Junction_EMP_TS\Details.cshtml" />
+    <Content Include="Views\Junction_EMP_TS\Edit.cshtml" />
+    <Content Include="Views\Junction_EMP_TS\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\TechnologyServices\Create.cshtml" />
+    <Content Include="Views\TechnologyServices\Delete.cshtml" />
+    <Content Include="Views\TechnologyServices\Details.cshtml" />
+    <Content Include="Views\TechnologyServices\Edit.cshtml" />
+    <Content Include="Views\TechnologyServices\Index.cshtml" />
+    <Content Include="Views\MaintenanceAgreements\Create.cshtml" />
+    <Content Include="Views\MaintenanceAgreements\Delete.cshtml" />
+    <Content Include="Views\MaintenanceAgreements\Details.cshtml" />
+    <Content Include="Views\MaintenanceAgreements\Edit.cshtml" />
+    <Content Include="Views\MaintenanceAgreements\Index.cshtml" />
+    <Content Include="Views\SoftwareLicensings\Create.cshtml" />
+    <Content Include="Views\SoftwareLicensings\Delete.cshtml" />
+    <Content Include="Views\SoftwareLicensings\Details.cshtml" />
+    <Content Include="Views\SoftwareLicensings\Edit.cshtml" />
+    <Content Include="Views\SoftwareLicensings\Index.cshtml" />
+    <Content Include="Views\BusinessServices\Create.cshtml" />
+    <Content Include="Views\BusinessServices\Delete.cshtml" />
+    <Content Include="Views\BusinessServices\Details.cshtml" />
+    <Content Include="Views\BusinessServices\Edit.cshtml" />
+    <Content Include="Views\BusinessServices\Index.cshtml" />
+    <Content Include="Views\BusinessUnits\Create.cshtml" />
+    <Content Include="Views\BusinessUnits\Delete.cshtml" />
+    <Content Include="Views\BusinessUnits\Details.cshtml" />
+    <Content Include="Views\BusinessUnits\Edit.cshtml" />
+    <Content Include="Views\BusinessUnits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
