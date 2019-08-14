@@ -39,7 +39,7 @@
             <PropertyRef Name="JBTID" />
           </Key>
           <Property Name="JBTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Percentage_Allocation" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="decimal" Precision="2" Scale="2" />
           <Property Name="BsServiceID" Type="int" />
           <Property Name="TechServiceID" Type="int" />
         </EntityType>
@@ -50,14 +50,14 @@
           <Property Name="JETID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EMPID" Type="int" />
           <Property Name="TechServiceID" Type="int" />
-          <Property Name="Percentage_Allocation" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="decimal" Precision="2" Scale="2" />
         </EntityType>
         <EntityType Name="Junction_MaintAgreement_TS">
           <Key>
             <PropertyRef Name="JMATS" />
           </Key>
           <Property Name="JMATS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Percentage_Allocation" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="decimal" Precision="2" Scale="2" />
           <Property Name="MAID" Type="int" />
           <Property Name="TechServiceID" Type="int" />
         </EntityType>
@@ -66,7 +66,7 @@
             <PropertyRef Name="JSTS" />
           </Key>
           <Property Name="JSTS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Percentage_allocation" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_allocation" Type="decimal" Precision="2" Scale="2" />
           <Property Name="SLID" Type="int" />
           <Property Name="TechServiceID" Type="int" />
         </EntityType>
@@ -75,7 +75,7 @@
             <PropertyRef Name="JVPID" />
           </Key>
           <Property Name="JVPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Percentage_Allocation" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="decimal" Precision="2" Scale="2" />
           <Property Name="VendorID" Type="int" />
           <Property Name="TechServiceID" Type="int" />
         </EntityType>
@@ -127,7 +127,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___BsSer__0662F0A3">
+        <Association Name="FK__Junction___BsSer__4924D839">
           <End Role="BusinessService" Type="Self.BusinessService" Multiplicity="0..1" />
           <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -139,7 +139,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___EMPID__10E07F16">
+        <Association Name="FK__Junction___EMPID__4183B671">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -151,43 +151,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__038683F8">
-          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
-          <End Role="Junction_Vendor_TS" Type="Self.Junction_Vendor_TS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TechnologyService">
-              <PropertyRef Name="TechServiceID" />
-            </Principal>
-            <Dependent Role="Junction_Vendor_TS">
-              <PropertyRef Name="TechServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Junction___TechS__075714DC">
-          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
-          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TechnologyService">
-              <PropertyRef Name="TechServiceID" />
-            </Principal>
-            <Dependent Role="Junction_BS_TS">
-              <PropertyRef Name="TechServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Junction___TechS__0B27A5C0">
-          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
-          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TechnologyService">
-              <PropertyRef Name="TechServiceID" />
-            </Principal>
-            <Dependent Role="Junction_Software_TS">
-              <PropertyRef Name="TechServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Junction___TechS__11D4A34F">
+        <Association Name="FK__Junction___TechS__4277DAAA">
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
           <End Role="Junction_EMP_TS" Type="Self.Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,7 +163,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__7DCDAAA2">
+        <Association Name="FK__Junction___TechS__46486B8E">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Software_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__4A18FC72">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_BS_TS" Type="Self.Junction_BS_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_BS_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__4DE98D56">
+          <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
+          <End Role="Junction_Vendor_TS" Type="Self.Junction_Vendor_TS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyService">
+              <PropertyRef Name="TechServiceID" />
+            </Principal>
+            <Dependent Role="Junction_Vendor_TS">
+              <PropertyRef Name="TechServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junction___TechS__51BA1E3A">
           <End Role="TechnologyService" Type="Self.TechnologyService" Multiplicity="0..1" />
           <End Role="Junction_MaintAgreement_TS" Type="Self.Junction_MaintAgreement_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -211,7 +211,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Vendo__02925FBF">
+        <Association Name="FK__Junction___Vendo__4CF5691D">
           <End Role="Vendor" Type="Self.Vendor" Multiplicity="0..1" />
           <End Role="Junction_Vendor_TS" Type="Self.Junction_Vendor_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -223,7 +223,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction_M__MAID__7CD98669">
+        <Association Name="FK__Junction_M__MAID__50C5FA01">
           <End Role="MaintenanceAgreement" Type="Self.MaintenanceAgreement" Multiplicity="0..1" />
           <End Role="Junction_MaintAgreement_TS" Type="Self.Junction_MaintAgreement_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +235,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction_S__SLID__0A338187">
+        <Association Name="FK__Junction_S__SLID__45544755">
           <End Role="SoftwareLicensing" Type="Self.SoftwareLicensing" Multiplicity="0..1" />
           <End Role="Junction_Software_TS" Type="Self.Junction_Software_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -265,43 +265,43 @@
             <End Role="BusinessUnit" EntitySet="BusinessUnit" />
             <End Role="Employees" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___BsSer__0662F0A3" Association="Self.FK__Junction___BsSer__0662F0A3">
+          <AssociationSet Name="FK__Junction___BsSer__4924D839" Association="Self.FK__Junction___BsSer__4924D839">
             <End Role="BusinessService" EntitySet="BusinessService" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___EMPID__10E07F16" Association="Self.FK__Junction___EMPID__10E07F16">
+          <AssociationSet Name="FK__Junction___EMPID__4183B671" Association="Self.FK__Junction___EMPID__4183B671">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__038683F8" Association="Self.FK__Junction___TechS__038683F8">
-            <End Role="TechnologyService" EntitySet="TechnologyService" />
-            <End Role="Junction_Vendor_TS" EntitySet="Junction_Vendor_TS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__075714DC" Association="Self.FK__Junction___TechS__075714DC">
-            <End Role="TechnologyService" EntitySet="TechnologyService" />
-            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__0B27A5C0" Association="Self.FK__Junction___TechS__0B27A5C0">
-            <End Role="TechnologyService" EntitySet="TechnologyService" />
-            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__11D4A34F" Association="Self.FK__Junction___TechS__11D4A34F">
+          <AssociationSet Name="FK__Junction___TechS__4277DAAA" Association="Self.FK__Junction___TechS__4277DAAA">
             <End Role="TechnologyService" EntitySet="TechnologyService" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__7DCDAAA2" Association="Self.FK__Junction___TechS__7DCDAAA2">
+          <AssociationSet Name="FK__Junction___TechS__46486B8E" Association="Self.FK__Junction___TechS__46486B8E">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__4A18FC72" Association="Self.FK__Junction___TechS__4A18FC72">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__4DE98D56" Association="Self.FK__Junction___TechS__4DE98D56">
+            <End Role="TechnologyService" EntitySet="TechnologyService" />
+            <End Role="Junction_Vendor_TS" EntitySet="Junction_Vendor_TS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junction___TechS__51BA1E3A" Association="Self.FK__Junction___TechS__51BA1E3A">
             <End Role="TechnologyService" EntitySet="TechnologyService" />
             <End Role="Junction_MaintAgreement_TS" EntitySet="Junction_MaintAgreement_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Vendo__02925FBF" Association="Self.FK__Junction___Vendo__02925FBF">
+          <AssociationSet Name="FK__Junction___Vendo__4CF5691D" Association="Self.FK__Junction___Vendo__4CF5691D">
             <End Role="Vendor" EntitySet="Vendor" />
             <End Role="Junction_Vendor_TS" EntitySet="Junction_Vendor_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction_M__MAID__7CD98669" Association="Self.FK__Junction_M__MAID__7CD98669">
+          <AssociationSet Name="FK__Junction_M__MAID__50C5FA01" Association="Self.FK__Junction_M__MAID__50C5FA01">
             <End Role="MaintenanceAgreement" EntitySet="MaintenanceAgreement" />
             <End Role="Junction_MaintAgreement_TS" EntitySet="Junction_MaintAgreement_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction_S__SLID__0A338187" Association="Self.FK__Junction_S__SLID__0A338187">
+          <AssociationSet Name="FK__Junction_S__SLID__45544755" Association="Self.FK__Junction_S__SLID__45544755">
             <End Role="SoftwareLicensing" EntitySet="SoftwareLicensing" />
             <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
           </AssociationSet>
@@ -324,7 +324,7 @@
           <EntitySet Name="SoftwareLicensings" EntityType="FinanceModel.SoftwareLicensing" />
           <EntitySet Name="TechnologyServices" EntityType="FinanceModel.TechnologyService" />
           <EntitySet Name="Vendors" EntityType="FinanceModel.Vendor" />
-          <AssociationSet Name="FK__Junction___BsSer__0662F0A3" Association="FinanceModel.FK__Junction___BsSer__0662F0A3">
+          <AssociationSet Name="FK__Junction___BsSer__4924D839" Association="FinanceModel.FK__Junction___BsSer__4924D839">
             <End Role="BusinessService" EntitySet="BusinessServices" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
@@ -332,43 +332,43 @@
             <End Role="BusinessUnit" EntitySet="BusinessUnits" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___EMPID__10E07F16" Association="FinanceModel.FK__Junction___EMPID__10E07F16">
+          <AssociationSet Name="FK__Junction___EMPID__4183B671" Association="FinanceModel.FK__Junction___EMPID__4183B671">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__075714DC" Association="FinanceModel.FK__Junction___TechS__075714DC">
+          <AssociationSet Name="FK__Junction___TechS__4A18FC72" Association="FinanceModel.FK__Junction___TechS__4A18FC72">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_BS_TS" EntitySet="Junction_BS_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__11D4A34F" Association="FinanceModel.FK__Junction___TechS__11D4A34F">
+          <AssociationSet Name="FK__Junction___TechS__4277DAAA" Association="FinanceModel.FK__Junction___TechS__4277DAAA">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_EMP_TS" EntitySet="Junction_EMP_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__7DCDAAA2" Association="FinanceModel.FK__Junction___TechS__7DCDAAA2">
+          <AssociationSet Name="FK__Junction___TechS__51BA1E3A" Association="FinanceModel.FK__Junction___TechS__51BA1E3A">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_MaintAgreement_TS" EntitySet="Junction_MaintAgreement_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction_M__MAID__7CD98669" Association="FinanceModel.FK__Junction_M__MAID__7CD98669">
+          <AssociationSet Name="FK__Junction_M__MAID__50C5FA01" Association="FinanceModel.FK__Junction_M__MAID__50C5FA01">
             <End Role="MaintenanceAgreement" EntitySet="MaintenanceAgreements" />
             <End Role="Junction_MaintAgreement_TS" EntitySet="Junction_MaintAgreement_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__0B27A5C0" Association="FinanceModel.FK__Junction___TechS__0B27A5C0">
+          <AssociationSet Name="FK__Junction___TechS__46486B8E" Association="FinanceModel.FK__Junction___TechS__46486B8E">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction_S__SLID__0A338187" Association="FinanceModel.FK__Junction_S__SLID__0A338187">
+          <AssociationSet Name="FK__Junction_S__SLID__45544755" Association="FinanceModel.FK__Junction_S__SLID__45544755">
             <End Role="SoftwareLicensing" EntitySet="SoftwareLicensings" />
             <End Role="Junction_Software_TS" EntitySet="Junction_Software_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___TechS__038683F8" Association="FinanceModel.FK__Junction___TechS__038683F8">
+          <AssociationSet Name="FK__Junction___TechS__4DE98D56" Association="FinanceModel.FK__Junction___TechS__4DE98D56">
             <End Role="TechnologyService" EntitySet="TechnologyServices" />
             <End Role="Junction_Vendor_TS" EntitySet="Junction_Vendor_TS" />
           </AssociationSet>
-          <AssociationSet Name="FK__Junction___Vendo__02925FBF" Association="FinanceModel.FK__Junction___Vendo__02925FBF">
+          <AssociationSet Name="FK__Junction___Vendo__4CF5691D" Association="FinanceModel.FK__Junction___Vendo__4CF5691D">
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="Junction_Vendor_TS" EntitySet="Junction_Vendor_TS" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="FindEmployees_Result">
           <Property Type="Int32" Name="EMPID" Nullable="false" />
           <Property Type="String" Name="SurName" Nullable="false" MaxLength="100" />
@@ -385,7 +385,7 @@
           <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="ServiceOwner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="CostCentre" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Junction_BS_TS" Relationship="FinanceModel.FK__Junction___BsSer__0662F0A3" FromRole="BusinessService" ToRole="Junction_BS_TS" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="FinanceModel.FK__Junction___BsSer__4924D839" FromRole="BusinessService" ToRole="Junction_BS_TS" />
         </EntityType>
         <EntityType Name="BusinessUnit">
           <Key>
@@ -408,18 +408,18 @@
           <Property Name="AnnualSalary" Type="Decimal" Precision="19" Scale="2" />
           <Property Name="BUID" Type="Int32" />
           <NavigationProperty Name="BusinessUnit" Relationship="FinanceModel.FK__Employees__BUID__0E04126B" FromRole="Employee" ToRole="BusinessUnit" />
-          <NavigationProperty Name="Junction_EMP_TS" Relationship="FinanceModel.FK__Junction___EMPID__10E07F16" FromRole="Employee" ToRole="Junction_EMP_TS" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="FinanceModel.FK__Junction___EMPID__4183B671" FromRole="Employee" ToRole="Junction_EMP_TS" />
         </EntityType>
         <EntityType Name="Junction_BS_TS">
           <Key>
             <PropertyRef Name="JBTID" />
           </Key>
           <Property Name="JBTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Percentage_Allocation" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="Decimal" Precision="2" Scale="2" />
           <Property Name="BsServiceID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <NavigationProperty Name="BusinessService" Relationship="FinanceModel.FK__Junction___BsSer__0662F0A3" FromRole="Junction_BS_TS" ToRole="BusinessService" />
-          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__075714DC" FromRole="Junction_BS_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="BusinessService" Relationship="FinanceModel.FK__Junction___BsSer__4924D839" FromRole="Junction_BS_TS" ToRole="BusinessService" />
+          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__4A18FC72" FromRole="Junction_BS_TS" ToRole="TechnologyService" />
         </EntityType>
         <EntityType Name="Junction_EMP_TS">
           <Key>
@@ -428,42 +428,42 @@
           <Property Name="JETID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EMPID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <Property Name="Percentage_Allocation" Type="Decimal" Precision="1" Scale="0" />
-          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK__Junction___EMPID__10E07F16" FromRole="Junction_EMP_TS" ToRole="Employee" />
-          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__11D4A34F" FromRole="Junction_EMP_TS" ToRole="TechnologyService" />
+          <Property Name="Percentage_Allocation" Type="Decimal" Precision="2" Scale="2" />
+          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK__Junction___EMPID__4183B671" FromRole="Junction_EMP_TS" ToRole="Employee" />
+          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__4277DAAA" FromRole="Junction_EMP_TS" ToRole="TechnologyService" />
         </EntityType>
         <EntityType Name="Junction_MaintAgreement_TS">
           <Key>
             <PropertyRef Name="JMATS" />
           </Key>
           <Property Name="JMATS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Percentage_Allocation" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="Decimal" Precision="2" Scale="2" />
           <Property Name="MAID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__7DCDAAA2" FromRole="Junction_MaintAgreement_TS" ToRole="TechnologyService" />
-          <NavigationProperty Name="MaintenanceAgreement" Relationship="FinanceModel.FK__Junction_M__MAID__7CD98669" FromRole="Junction_MaintAgreement_TS" ToRole="MaintenanceAgreement" />
+          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__51BA1E3A" FromRole="Junction_MaintAgreement_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="MaintenanceAgreement" Relationship="FinanceModel.FK__Junction_M__MAID__50C5FA01" FromRole="Junction_MaintAgreement_TS" ToRole="MaintenanceAgreement" />
         </EntityType>
         <EntityType Name="Junction_Software_TS">
           <Key>
             <PropertyRef Name="JSTS" />
           </Key>
           <Property Name="JSTS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Percentage_allocation" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_allocation" Type="Decimal" Precision="2" Scale="2" />
           <Property Name="SLID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__0B27A5C0" FromRole="Junction_Software_TS" ToRole="TechnologyService" />
-          <NavigationProperty Name="SoftwareLicensing" Relationship="FinanceModel.FK__Junction_S__SLID__0A338187" FromRole="Junction_Software_TS" ToRole="SoftwareLicensing" />
+          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__46486B8E" FromRole="Junction_Software_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="SoftwareLicensing" Relationship="FinanceModel.FK__Junction_S__SLID__45544755" FromRole="Junction_Software_TS" ToRole="SoftwareLicensing" />
         </EntityType>
         <EntityType Name="Junction_Vendor_TS">
           <Key>
             <PropertyRef Name="JVPID" />
           </Key>
           <Property Name="JVPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Percentage_Allocation" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="Percentage_Allocation" Type="Decimal" Precision="2" Scale="2" />
           <Property Name="VendorID" Type="Int32" />
           <Property Name="TechServiceID" Type="Int32" />
-          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__038683F8" FromRole="Junction_Vendor_TS" ToRole="TechnologyService" />
-          <NavigationProperty Name="Vendor" Relationship="FinanceModel.FK__Junction___Vendo__02925FBF" FromRole="Junction_Vendor_TS" ToRole="Vendor" />
+          <NavigationProperty Name="TechnologyService" Relationship="FinanceModel.FK__Junction___TechS__4DE98D56" FromRole="Junction_Vendor_TS" ToRole="TechnologyService" />
+          <NavigationProperty Name="Vendor" Relationship="FinanceModel.FK__Junction___Vendo__4CF5691D" FromRole="Junction_Vendor_TS" ToRole="Vendor" />
         </EntityType>
         <EntityType Name="MaintenanceAgreement">
           <Key>
@@ -474,7 +474,7 @@
           <Property Name="Vendor" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Owner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Junction_MaintAgreement_TS" Relationship="FinanceModel.FK__Junction_M__MAID__7CD98669" FromRole="MaintenanceAgreement" ToRole="Junction_MaintAgreement_TS" />
+          <NavigationProperty Name="Junction_MaintAgreement_TS" Relationship="FinanceModel.FK__Junction_M__MAID__50C5FA01" FromRole="MaintenanceAgreement" ToRole="Junction_MaintAgreement_TS" />
         </EntityType>
         <EntityType Name="SoftwareLicensing">
           <Key>
@@ -484,7 +484,7 @@
           <Property Name="SoftwareName" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="Owner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
-          <NavigationProperty Name="Junction_Software_TS" Relationship="FinanceModel.FK__Junction_S__SLID__0A338187" FromRole="SoftwareLicensing" ToRole="Junction_Software_TS" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="FinanceModel.FK__Junction_S__SLID__45544755" FromRole="SoftwareLicensing" ToRole="Junction_Software_TS" />
         </EntityType>
         <EntityType Name="TechnologyService">
           <Key>
@@ -493,11 +493,11 @@
           <Property Name="TechServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="ServiceOwner" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Junction_BS_TS" Relationship="FinanceModel.FK__Junction___TechS__075714DC" FromRole="TechnologyService" ToRole="Junction_BS_TS" />
-          <NavigationProperty Name="Junction_EMP_TS" Relationship="FinanceModel.FK__Junction___TechS__11D4A34F" FromRole="TechnologyService" ToRole="Junction_EMP_TS" />
-          <NavigationProperty Name="Junction_MaintAgreement_TS" Relationship="FinanceModel.FK__Junction___TechS__7DCDAAA2" FromRole="TechnologyService" ToRole="Junction_MaintAgreement_TS" />
-          <NavigationProperty Name="Junction_Software_TS" Relationship="FinanceModel.FK__Junction___TechS__0B27A5C0" FromRole="TechnologyService" ToRole="Junction_Software_TS" />
-          <NavigationProperty Name="Junction_Vendor_TS" Relationship="FinanceModel.FK__Junction___TechS__038683F8" FromRole="TechnologyService" ToRole="Junction_Vendor_TS" />
+          <NavigationProperty Name="Junction_BS_TS" Relationship="FinanceModel.FK__Junction___TechS__4A18FC72" FromRole="TechnologyService" ToRole="Junction_BS_TS" />
+          <NavigationProperty Name="Junction_EMP_TS" Relationship="FinanceModel.FK__Junction___TechS__4277DAAA" FromRole="TechnologyService" ToRole="Junction_EMP_TS" />
+          <NavigationProperty Name="Junction_MaintAgreement_TS" Relationship="FinanceModel.FK__Junction___TechS__51BA1E3A" FromRole="TechnologyService" ToRole="Junction_MaintAgreement_TS" />
+          <NavigationProperty Name="Junction_Software_TS" Relationship="FinanceModel.FK__Junction___TechS__46486B8E" FromRole="TechnologyService" ToRole="Junction_Software_TS" />
+          <NavigationProperty Name="Junction_Vendor_TS" Relationship="FinanceModel.FK__Junction___TechS__4DE98D56" FromRole="TechnologyService" ToRole="Junction_Vendor_TS" />
         </EntityType>
         <EntityType Name="Vendor">
           <Key>
@@ -507,9 +507,9 @@
           <Property Name="VendorName" Type="String" Nullable="false" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="ChargeItemName" Type="String" MaxLength="120" FixedLength="true" Unicode="false" />
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="2" />
-          <NavigationProperty Name="Junction_Vendor_TS" Relationship="FinanceModel.FK__Junction___Vendo__02925FBF" FromRole="Vendor" ToRole="Junction_Vendor_TS" />
+          <NavigationProperty Name="Junction_Vendor_TS" Relationship="FinanceModel.FK__Junction___Vendo__4CF5691D" FromRole="Vendor" ToRole="Junction_Vendor_TS" />
         </EntityType>
-        <Association Name="FK__Junction___BsSer__0662F0A3">
+        <Association Name="FK__Junction___BsSer__4924D839">
           <End Type="FinanceModel.BusinessService" Role="BusinessService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_BS_TS" Role="Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -533,7 +533,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___EMPID__10E07F16">
+        <Association Name="FK__Junction___EMPID__4183B671">
           <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_EMP_TS" Role="Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -545,7 +545,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__075714DC">
+        <Association Name="FK__Junction___TechS__4A18FC72">
           <End Type="FinanceModel.TechnologyService" Role="TechnologyService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_BS_TS" Role="Junction_BS_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -557,7 +557,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__11D4A34F">
+        <Association Name="FK__Junction___TechS__4277DAAA">
           <End Type="FinanceModel.TechnologyService" Role="TechnologyService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_EMP_TS" Role="Junction_EMP_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -569,7 +569,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__7DCDAAA2">
+        <Association Name="FK__Junction___TechS__51BA1E3A">
           <End Type="FinanceModel.TechnologyService" Role="TechnologyService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_MaintAgreement_TS" Role="Junction_MaintAgreement_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -581,7 +581,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction_M__MAID__7CD98669">
+        <Association Name="FK__Junction_M__MAID__50C5FA01">
           <End Type="FinanceModel.MaintenanceAgreement" Role="MaintenanceAgreement" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_MaintAgreement_TS" Role="Junction_MaintAgreement_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -593,7 +593,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__0B27A5C0">
+        <Association Name="FK__Junction___TechS__46486B8E">
           <End Type="FinanceModel.TechnologyService" Role="TechnologyService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_Software_TS" Role="Junction_Software_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -605,7 +605,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction_S__SLID__0A338187">
+        <Association Name="FK__Junction_S__SLID__45544755">
           <End Type="FinanceModel.SoftwareLicensing" Role="SoftwareLicensing" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_Software_TS" Role="Junction_Software_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -617,7 +617,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___TechS__038683F8">
+        <Association Name="FK__Junction___TechS__4DE98D56">
           <End Type="FinanceModel.TechnologyService" Role="TechnologyService" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_Vendor_TS" Role="Junction_Vendor_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -629,7 +629,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Junction___Vendo__02925FBF">
+        <Association Name="FK__Junction___Vendo__4CF5691D">
           <End Type="FinanceModel.Vendor" Role="Vendor" Multiplicity="0..1" />
           <End Type="FinanceModel.Junction_Vendor_TS" Role="Junction_Vendor_TS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -641,7 +641,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
