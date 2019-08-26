@@ -71,16 +71,16 @@ namespace BusinessServiceTracking.Helpers
             }
         }
 
-        // used to add costs of table and column
-        public static int ExecuteStoredProcedure(string ProcedureName)
+        // used to return calculations in Decimal (Money) of any stored procedure as a single return value
+        public static decimal StoredProcedureRetDecimal(string ProcedureName)
         {
-           // string stmt = string.Format("SELECT Sum(AnnualSalary) FROM {0}",tableName);
             string ConnectionString = null;
+            decimal ReturnDecimal = 0;
 
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
             ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
 
-            decimal total = 0;
+            
             try
             {
 
@@ -100,7 +100,7 @@ namespace BusinessServiceTracking.Helpers
                                 if (reader.Read())
                                 {
                                     //returns an array
-                                    decimal EmpSalary = reader.GetDecimal(0);
+                                    ReturnDecimal = reader.GetDecimal(0);
                                 }
                             }
 
@@ -113,7 +113,7 @@ namespace BusinessServiceTracking.Helpers
 
                         };
                     }
-                    return 1;
+                    return ReturnDecimal;
                 }
             }
             catch (Exception ex)
