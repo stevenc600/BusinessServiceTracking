@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BusinessServiceTracking.Helpers;
 using BusinessServiceTracking.Models;
+
 
 namespace BusinessServiceTracking.Controllers
 {
@@ -17,6 +19,11 @@ namespace BusinessServiceTracking.Controllers
         // GET: Employees
         public ActionResult Index()
         {
+
+            //PerformCalcs.StoredProcedureRetDecimal("employees")
+            decimal TotalSalary = PerformCalcs.StoredProcedureRetDecimal("SumEmployeeSalary");
+            ViewBag.TotalAnnualSal = TotalSalary;
+
             // Explicit loading of related data using the include method
             var employees = db.Employees.Include(e => e.BusinessUnit);
             return View(employees.ToList());

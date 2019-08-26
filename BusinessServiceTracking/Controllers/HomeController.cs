@@ -43,8 +43,7 @@ namespace BusinessServiceTracking.Controllers
         public ActionResult Calcs()
         {
 
-            //PerformCalcs.GetTableCount("employees", "Null");
-            PerformCalcs.ExecuteStoredProcedure("SumEmployeeSalary");
+           
 
 
 

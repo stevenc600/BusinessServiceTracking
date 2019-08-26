@@ -27,34 +27,43 @@
         <th>
             @Html.DisplayNameFor(model => model.BusinessUnit.Name)
         </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SurName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalaryNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnualSalary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BusinessUnit.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EMPID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EMPID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EMPID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnualSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusinessUnit.Name)
+            </td>
+
+
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EMPID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EMPID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EMPID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@Html.Label("Total Staff Annual Salary")
+@((ViewBag.TotalAnnualSal).ToString("C2"))
 
 
