@@ -11,7 +11,8 @@ namespace BusinessServiceTracking.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,8 @@ namespace BusinessServiceTracking.Models
         public string SurName { get; set; }
         public string FirstName { get; set; }
         public string SalaryNumber { get; set; }
+
+        [DataType(DataType.Currency)]
         public Nullable<decimal> AnnualSalary { get; set; }
         public Nullable<int> BUID { get; set; }
     
