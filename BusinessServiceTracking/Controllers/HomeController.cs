@@ -14,10 +14,10 @@ namespace BusinessServiceTracking.Controllers
         public ActionResult Index()
         {
 
-           // PerformCalcs.GetTableCount("employees", "Null");
-          //  PerformCalcs.AddCost("employees", "null");
-           
+            // PerformCalcs.GetTableCount("employees", "Null");
+            //  PerformCalcs.AddCost("employees", "null");
 
+            PerformCalcs.StoredProcedureReturnServiceAndCost("TechServicesEmployeeCost");
             return View();
         }
 

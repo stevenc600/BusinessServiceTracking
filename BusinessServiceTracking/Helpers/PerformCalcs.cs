@@ -89,7 +89,9 @@ namespace BusinessServiceTracking.Helpers
                     using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@returnvalue", 1.00);
+
+                        //not required
+                       // command.Parameters.AddWithValue("@returnvalue", 1.00);
 
                         thisConnection.Open();
 
@@ -123,6 +125,64 @@ namespace BusinessServiceTracking.Helpers
             }
         }
 
+        // get both the service and the cost based on a stored procedure
+        public static decimal StoredProcedureReturnServiceAndCost(string ProcedureName)
+        {
+            string ConnectionString = null;
+            decimal ReturnCost = 0;
+            string ReturnService;
 
+            // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
+            ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
+
+
+            try
+            {
+
+                using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        //not required.
+                       // command.Parameters.AddWithValue("@returnvalue", 1.00);
+
+                        thisConnection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                          //  int testread = readerread;
+                            
+                            while (reader.Read())
+                            {
+                                
+                                    //returns an array
+                                    ReturnService = reader.GetString(0);
+                                    ReturnCost = reader.GetDecimal(1);
+
+                                    Console.WriteLine(ReturnService);
+                                    Console.WriteLine(ReturnCost);
+
+                                 
+                            }
+
+
+                            thisConnection.Close();
+
+
+
+
+
+                        };
+                    }
+                    return ReturnCost;
+                }
+            }
+            catch (Exception ex)
+            {
+                // VDBLogger.LogError(ex);
+                return 0;
+            }
+        }
     }
 }
