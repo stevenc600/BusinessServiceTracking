@@ -11,7 +11,7 @@ namespace BusinessServiceTracking.Helpers
     {
         // Example how to call
         // PerformCalcs.GetTableCount("employees", "Null");
-
+        
         public static int GetTableCount(string tableName)
         {
             string stmt = string.Format("SELECT COUNT(*) FROM {0}", tableName);
@@ -129,7 +129,7 @@ namespace BusinessServiceTracking.Helpers
         public static decimal StoredProcedureReturnServiceAndCost(string ProcedureName)
         {
             string ConnectionString = null;
-            decimal ReturnCost = 0;
+            decimal ReturnDecCost = 0;
             string ReturnService;
 
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
@@ -151,22 +151,46 @@ namespace BusinessServiceTracking.Helpers
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                          //  int testread = readerread;
+                            int counter = 4;
+
+                           // while (reader.Read())
+                            //{
+                                //get rows
+                              //  counter++;
+                            //}
                             
+                            string[,] RetrunArray = new string[counter,2];
+
+
+
+                            
+                            
+
+
+                            int innerCounter = 0;
                             while (reader.Read())
                             {
                                 
                                     //returns an array
                                     ReturnService = reader.GetString(0);
-                                    ReturnCost = reader.GetDecimal(1);
+                                    ReturnDecCost = reader.GetDecimal(1);
+                                    
+                                    string ReturnStringCost = Convert.ToString(ReturnDecCost);
 
-                                    Console.WriteLine(ReturnService);
-                                    Console.WriteLine(ReturnCost);
+                                    RetrunArray[innerCounter,innerCounter] = ReturnService;
+                                    RetrunArray[innerCounter, 1] = ReturnStringCost;
 
-                                 
+
+                                innerCounter++;
+
+                                // need to add to viewbag
+
+
+
+
                             }
 
-
+                            
                             thisConnection.Close();
 
 
@@ -175,7 +199,7 @@ namespace BusinessServiceTracking.Helpers
 
                         };
                     }
-                    return ReturnCost;
+                    return 1;
                 }
             }
             catch (Exception ex)
