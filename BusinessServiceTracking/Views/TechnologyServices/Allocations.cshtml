@@ -1,0 +1,27 @@
+﻿@model IEnumerable<BusinessServiceTracking.Models.TechnologyService>
+
+@{
+    ViewBag.Title = "Allocations";
+}
+
+<h2>Allocations</h2>
+
+
+@foreach (var str in ViewBag.Collection)
+{
+    @Html.Raw(str); <br />
+
+}
+
+@for (int i = 0; i <= (Enumerable.Count(ViewBag.Collection)); i++)
+{
+    if ((i % 2) == 0)
+    {
+        Console.WriteLine(i);
+        System.Diagnostics.Debug.WriteLine(i);
+        @Html.Raw(ViewBag.Collection[i]) <br />
+    }
+
+
+}
+

@@ -17,7 +17,7 @@ namespace BusinessServiceTracking.Controllers
             // PerformCalcs.GetTableCount("employees", "Null");
             //  PerformCalcs.AddCost("employees", "null");
 
-            PerformCalcs.StoredProcedureReturnServiceAndCost("TechServicesEmployeeCost");
+            
             return View();
         }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BusinessServiceTracking.Helpers;
 using BusinessServiceTracking.Models;
 
 namespace BusinessServiceTracking.Controllers
@@ -18,6 +19,17 @@ namespace BusinessServiceTracking.Controllers
         public ActionResult Index()
         {
             return View(db.TechnologyServices.ToList());
+        }
+
+        public ActionResult Allocations()
+        {
+                var stringArray = PerformCalcs.StoredProcedureReturnServiceAndCost("TechServicesEmployeeCost");
+                ViewBag.Collection = stringArray;
+                
+                // Get Item Count of ViewBag
+                var testing = (Enumerable.Count(ViewBag.Collection));
+                return View();
+            
         }
 
         // GET: TechnologyServices/Details/5

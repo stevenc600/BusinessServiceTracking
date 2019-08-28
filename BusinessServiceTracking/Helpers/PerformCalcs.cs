@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -126,11 +127,13 @@ namespace BusinessServiceTracking.Helpers
         }
 
         // get both the service and the cost based on a stored procedure
-        public static decimal StoredProcedureReturnServiceAndCost(string ProcedureName)
+        public static List<String> StoredProcedureReturnServiceAndCost(string ProcedureName)
         {
             string ConnectionString = null;
             decimal ReturnDecCost = 0;
             string ReturnService;
+            List<string> resultList = new List<string>();
+
 
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
             ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
@@ -151,15 +154,9 @@ namespace BusinessServiceTracking.Helpers
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int counter = 4;
-
-                           // while (reader.Read())
-                            //{
-                                //get rows
-                              //  counter++;
-                            //}
-                            
-                            string[,] RetrunArray = new string[counter,2];
+                                                    
+                            // Build Multidimension Array
+                           // string[,] RetrunArray = new string[counter,2];
 
 
 
@@ -177,13 +174,19 @@ namespace BusinessServiceTracking.Helpers
                                     
                                     string ReturnStringCost = Convert.ToString(ReturnDecCost);
 
-                                    RetrunArray[innerCounter,innerCounter] = ReturnService;
-                                    RetrunArray[innerCounter, 1] = ReturnStringCost;
+
+                                   // RetrunArray[innerCounter,0] = ReturnService;
+                                  //  RetrunArray[innerCounter, 1] = ReturnStringCost;
+                                    
+                                    // build list to return
+                                    resultList.Add(ReturnService);
+                                    resultList.Add(ReturnStringCost);
+                                
 
 
                                 innerCounter++;
 
-                                // need to add to viewbag
+                               
 
 
 
@@ -199,13 +202,13 @@ namespace BusinessServiceTracking.Helpers
 
                         };
                     }
-                    return 1;
+                    return resultList;
                 }
             }
             catch (Exception ex)
             {
                 // VDBLogger.LogError(ex);
-                return 0;
+                return resultList;
             }
         }
     }
