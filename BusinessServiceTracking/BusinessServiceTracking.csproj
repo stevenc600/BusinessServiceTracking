@@ -140,7 +140,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\PerformCalcs - Copy.cs" />
     <Compile Include="Helpers\PerformCalcs.cs" />
     <Compile Include="Models\BusinessService.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>

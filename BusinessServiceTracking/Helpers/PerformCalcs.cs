@@ -45,7 +45,7 @@ namespace BusinessServiceTracking.Helpers
 
 
         // Create connection object to database
-        public static object ConnectDB()
+        public static SqlConnection ConnectToDB()
         {
            // string stmt = string.Format("SELECT COUNT(*) FROM {0}", tablename);
             string ConnectionString = null;
@@ -53,14 +53,11 @@ namespace BusinessServiceTracking.Helpers
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
             ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
 
-                       
             try
             {
 
                 using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
-                {
-
-                    
+                {                                      
                     return (thisConnection);
                 }
                 
@@ -68,34 +65,32 @@ namespace BusinessServiceTracking.Helpers
             catch (Exception ex)
             {
                 // VDBLogger.LogError(ex);
-                return 0;
+                string ErrorString = ex.Message;
+                throw;              
             }
         }
 
         // used to return calculations in Decimal (Money) of any stored procedure as a single return value
         public static decimal StoredProcedureRetDecimal(string ProcedureName)
         {
-            string ConnectionString = null;
+            //string ConnectionString = null;
             decimal ReturnDecimal = 0;
 
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
-            ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
+           // ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
 
-            SqlConnection DBConnection = ConnectDB();
+            SqlConnection thisConnection = ConnectToDB();
 
             try
             {
 
-                using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
-                {
+                //using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
+                //{
                     using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
-                        //not required
-                       // command.Parameters.AddWithValue("@returnvalue", 1.00);
-
-                        thisConnection.Open();
+                       thisConnection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -107,16 +102,11 @@ namespace BusinessServiceTracking.Helpers
                                     ReturnDecimal = reader.GetDecimal(0);
                                 }
                             }
-
-
+                            
                             thisConnection.Close();
-
-
-
-
-
+                                                                                          
                         };
-                    }
+                 //   }
                     return ReturnDecimal;
                 }
             }
