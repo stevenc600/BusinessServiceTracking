@@ -14,10 +14,7 @@ namespace BusinessServiceTracking.Controllers
         public ActionResult Index()
         {
 
-            // PerformCalcs.GetTableCount("employees", "Null");
-            //  PerformCalcs.AddCost("employees", "null");
-
-            
+                       
             return View();
         }
 
@@ -40,14 +37,6 @@ namespace BusinessServiceTracking.Controllers
             return View();
         }
 
-        public ActionResult Calcs()
-        {
-
-           
-
-
-
-            return View();
-        }
+       
     }
 }

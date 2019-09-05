@@ -21,6 +21,14 @@ namespace BusinessServiceTracking.Controllers
             return View(junction_EMP_TS.ToList());
         }
 
+        // Test if employee is utilised my that 100%
+        public ActionResult ValidateEmployeeAllocation(int employeeID)
+        {
+
+
+            return View();
+
+        }
 
         // GET: Junction_EMP_TS/Details/5
         public ActionResult Details(int? id)
@@ -50,8 +58,19 @@ namespace BusinessServiceTracking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+        // The create below also creates the new object named junction_emp_ts  of type junction_emp_ts
         public ActionResult Create([Bind(Include = "JETID,EMPID,TechServiceID,Percentage_Allocation")] Junction_EMP_TS junction_EMP_TS)
         {
+            // Trying to allow somebody to type in non decimal versions of a percentage
+            if (junction_EMP_TS.Percentage_Allocation > 1)
+            {
+                junction_EMP_TS.Percentage_Allocation = junction_EMP_TS.Percentage_Allocation / 100;
+            }
+
+            // Call function to check Employee utilisation
+
+
             if (ModelState.IsValid)
             {
                 db.Junction_EMP_TS.Add(junction_EMP_TS);

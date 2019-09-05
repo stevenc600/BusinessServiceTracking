@@ -32,9 +32,13 @@
         </div>
 
         <div class="form-group">
+
+            
+
             @Html.LabelFor(model => model.Percentage_Allocation, "Percentage Allocation", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Percentage_Allocation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Percentage_Allocation, new { htmlAttributes = new { @class = "form-control" , autocomplete = "off" } })
+                
                 @Html.ValidationMessageFor(model => model.Percentage_Allocation, "", new { @class = "text-danger" })
             </div>
         </div>

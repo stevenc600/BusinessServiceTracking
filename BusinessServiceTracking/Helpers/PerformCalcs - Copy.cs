@@ -45,7 +45,7 @@ namespace BusinessServiceTracking.Helpers
 
 
         // Create connection object to database
-        public static object ConnectDB()
+        public static object ConnectToDB()
         {
            // string stmt = string.Format("SELECT COUNT(*) FROM {0}", tablename);
             string ConnectionString = null;
@@ -81,8 +81,7 @@ namespace BusinessServiceTracking.Helpers
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
             ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
 
-            SqlConnection DBConnection = ConnectDB();
-
+            
             try
             {
 

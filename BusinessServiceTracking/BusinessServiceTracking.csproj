@@ -140,6 +140,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PerformCalcs - Copy.cs" />
     <Compile Include="Helpers\PerformCalcs.cs" />
     <Compile Include="Models\BusinessService.cs">
       <DependentUpon>FinanceModel.tt</DependentUpon>
@@ -302,7 +303,6 @@
     <Content Include="Views\TechnologyServices\Delete.cshtml" />
     <Content Include="Views\TechnologyServices\Details.cshtml" />
     <Content Include="Views\TechnologyServices\Edit.cshtml" />
-    <Content Include="Views\TechnologyServices\Index.cshtml" />
     <Content Include="Views\MaintenanceAgreements\Create.cshtml" />
     <Content Include="Views\MaintenanceAgreements\Delete.cshtml" />
     <Content Include="Views\MaintenanceAgreements\Details.cshtml" />
@@ -343,6 +343,7 @@
     </Content>
     <Content Include="Views\Home\Calcs.cshtml" />
     <Content Include="Views\TechnologyServices\Allocations.cshtml" />
+    <Content Include="Views\TechnologyServices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
