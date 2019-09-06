@@ -21,7 +21,7 @@ namespace BusinessServiceTracking.Controllers
         {
 
             //PerformCalcs.StoredProcedureRetDecimal("employees")
-            decimal TotalSalary = PerformCalcs.StoredProcedureRetDecimal("SumEmployeeSalary");
+            decimal TotalSalary = PerformCalcs.StoredProcedureRetDecimal("SumEmployeeSalary",0);
             ViewBag.TotalAnnualSal = TotalSalary;
 
             // Explicit loading of related data using the include method

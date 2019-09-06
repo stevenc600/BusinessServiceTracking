@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BusinessServiceTracking.Models;
+using BusinessServiceTracking.Helpers;
 
 namespace BusinessServiceTracking.Controllers
 {
@@ -69,6 +70,9 @@ namespace BusinessServiceTracking.Controllers
             }
 
             // Call function to check Employee utilisation
+            var TotalUtilisation = PerformCalcs.StoredProcedureRetDecimal("SumEmployeeSalary", junction_EMP_TS.EMPID);
+
+
 
 
             if (ModelState.IsValid)

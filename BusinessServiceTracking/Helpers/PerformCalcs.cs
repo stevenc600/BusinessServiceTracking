@@ -45,10 +45,11 @@ namespace BusinessServiceTracking.Helpers
 
 
         // Create connection object to database
-        public static SqlConnection ConnectToDB()
+        public static void ConnectToDB(Action<SqlConnection> connectionCallBack)
         {
            // string stmt = string.Format("SELECT COUNT(*) FROM {0}", tablename);
             string ConnectionString = null;
+            SqlConnection thisConnection = null;
 
             // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
             ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
@@ -56,11 +57,9 @@ namespace BusinessServiceTracking.Helpers
             try
             {
 
-                using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
-                {                                      
-                    return (thisConnection);
-                }
-                
+                thisConnection = new SqlConnection(ConnectionString);
+                connectionCallBack(thisConnection);
+
             }
             catch (Exception ex)
             {
@@ -68,139 +67,134 @@ namespace BusinessServiceTracking.Helpers
                 string ErrorString = ex.Message;
                 throw;              
             }
+            finally
+            {
+
+                if (thisConnection != null)
+                    thisConnection.Dispose(); //will close the connection
+            }
         }
 
         // used to return calculations in Decimal (Money) of any stored procedure as a single return value
-        public static decimal StoredProcedureRetDecimal(string ProcedureName)
+        public static decimal StoredProcedureRetDecimal(string ProcedureName,int? RecordId)
         {
             //string ConnectionString = null;
             decimal ReturnDecimal = 0;
 
-            // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
-           // ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
+           // object test;
+           // SqlConnection thisConnection = new SqlConnection();
+           // test = ConnectToDB();
 
-            SqlConnection thisConnection = ConnectToDB();
+            ConnectToDB(delegate (SqlConnection thisConnection)
+                {
 
-            try
-            {
-
-                //using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
-                //{
-                    using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
 
-                       thisConnection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
                         {
-                            if (reader.HasRows)
+
+                            if (RecordId != 0)
                             {
-                                if (reader.Read())
-                                {
-                                    //returns an array
-                                    ReturnDecimal = reader.GetDecimal(0);
-                                }
+                                command.Parameters.Add("@RecordID", SqlDbType.VarChar).Value = RecordId;
                             }
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            thisConnection.Open();
+
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    if (reader.Read())
+                                    {
+                                        //returns an array
+                                        ReturnDecimal = reader.GetDecimal(0);
+                                    }
+                                }
+
+                                thisConnection.Close();
+
+                            };
+
                             
-                            thisConnection.Close();
-                                                                                          
-                        };
-                 //   }
-                    return ReturnDecimal;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // VDBLogger.LogError(ex);
+                        
+                    }
+
                 }
-            }
-            catch (Exception ex)
-            {
-                // VDBLogger.LogError(ex);
-                return 0;
-            }
+                );
+            return ReturnDecimal;
+
         }
 
         // get both the service and the cost based on a stored procedure
         public static List<String> StoredProcedureReturnServiceAndCost(string ProcedureName)
         {
-            string ConnectionString = null;
+           
             decimal ReturnDecCost = 0;
             string ReturnService;
             List<string> resultList = new List<string>();
+                                  
 
-
-            // Connection string while only having the one database, if I have addtional databases will need to pass in the connection string
-            ConnectionString = "data source=DESKTOP-RT89R4A\\sqlexpress;initial catalog=FinanceModelling;integrated security=True";
-
-
-            try
+           // SqlConnection thisConnection = ConnectToDB(delegate (SqlConnection thisConnection);
+            ConnectToDB(delegate (SqlConnection thisConnection)
             {
-
-                using (SqlConnection thisConnection = new SqlConnection(ConnectionString))
+                try
                 {
+
+
                     using (SqlCommand command = new SqlCommand(ProcedureName, thisConnection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        //not required.
-                       // command.Parameters.AddWithValue("@returnvalue", 1.00);
 
                         thisConnection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                                                    
-                            // Build Multidimension Array
-                           // string[,] RetrunArray = new string[counter,2];
 
-
-
-                            
-                            
 
 
                             int innerCounter = 0;
                             while (reader.Read())
                             {
-                                
-                                    //returns an array
-                                    ReturnService = reader.GetString(0);
-                                    ReturnDecCost = reader.GetDecimal(1);
-                                    
-                                    string ReturnStringCost = Convert.ToString(ReturnDecCost);
 
+                                //returns an array
+                                ReturnService = reader.GetString(0);
+                                ReturnDecCost = reader.GetDecimal(1);
 
-                                   // RetrunArray[innerCounter,0] = ReturnService;
-                                  //  RetrunArray[innerCounter, 1] = ReturnStringCost;
-                                    
-                                    // build list to return
-                                    resultList.Add(ReturnService);
-                                    resultList.Add(ReturnStringCost);
-                                
+                                string ReturnStringCost = Convert.ToString(ReturnDecCost);
+
+                                // build list to return
+                                resultList.Add(ReturnService);
+                                resultList.Add(ReturnStringCost);
 
 
                                 innerCounter++;
 
-                               
-
-
-
 
                             }
 
-                            
                             thisConnection.Close();
-
-
-
-
 
                         };
                     }
-                    return resultList;
+                    
+
                 }
-            }
-            catch (Exception ex)
-            {
-                // VDBLogger.LogError(ex);
-                return resultList;
-            }
+                catch (Exception ex)
+                {
+                    // VDBLogger.LogError(ex);
+                    
+                }
+
+            });
+
+            return resultList;
         }
     }
 }
